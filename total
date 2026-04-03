@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCB vs CSK · IPL 2026 · War Room M2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Space+Mono:wght@400;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0705;--s1:#120E0A;--s2:#1A1410;--s3:#231C16;--s4:#2C241C;
+  --b:rgba(255,220,150,0.08);--b2:rgba(255,220,150,0.14);--b3:rgba(255,220,150,0.25);
+  --rcb:#E8341A;--rcb2:#FF6B47;--rcbm:rgba(232,52,26,0.15);
+  --csk:#F5A623;--csk2:#FFD080;--cskm:rgba(245,166,35,0.15);
+  --gold:#D4A843;--gold2:#F0C866;
+  --t1:rgba(255,240,210,0.96);--t2:rgba(255,230,180,0.60);--t3:rgba(255,220,150,0.32);--t4:rgba(255,220,150,0.08);
+  --ok:#2ECC71;--warn:#F39C12;--err:#E74C3C;
+  --mono:'Space Mono',monospace;--head:'Barlow Condensed',sans-serif;
+}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:0.4;mix-blend-mode:overlay}
+body{background:var(--bg);color:var(--t1);font-family:var(--head);font-size:12px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.app{min-height:100vh;position:relative;
+  background:radial-gradient(ellipse 60% 45% at 5% 0%,rgba(232,52,26,0.18) 0%,transparent 55%),
+             radial-gradient(ellipse 60% 45% at 95% 0%,rgba(245,166,35,0.18) 0%,transparent 55%),
+             radial-gradient(ellipse 80% 60% at 50% 100%,rgba(212,168,67,0.08) 0%,transparent 60%),var(--bg)}
+.app::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,220,150,0.025) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,220,150,0.025) 1px,transparent 1px);background-size:48px 48px}
+
+/* ══ HEADER ══ */
+.hdr{display:grid;grid-template-columns:1fr auto 1fr;border-bottom:1px solid var(--b2);position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--rcb),var(--gold),var(--csk));opacity:0.5}
+.th{padding:22px 24px 18px;position:relative;overflow:hidden}
+.th::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.th.rcb{background:linear-gradient(135deg,rgba(232,52,26,0.12) 0%,rgba(232,52,26,0.02) 50%,transparent 100%);
+  border-right:1px solid var(--b);animation:slideInLeft 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s both}
+.th.rcb::after{background:linear-gradient(90deg,var(--rcb),var(--rcb2),rgba(232,52,26,0))}
+.th.csk{background:linear-gradient(225deg,rgba(245,166,35,0.12) 0%,rgba(245,166,35,0.02) 50%,transparent 100%);
+  text-align:right;border-left:1px solid var(--b);animation:slideInRight 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s both}
+.th.csk::after{background:linear-gradient(270deg,var(--csk),var(--csk2),rgba(245,166,35,0))}
+/* scan line */
+.th::before{content:'';position:absolute;top:-100%;left:0;right:0;height:100%;
+  background:linear-gradient(180deg,transparent 0%,rgba(255,220,150,0.03) 50%,transparent 100%);
+  animation:scanLine 5s ease-in-out infinite;pointer-events:none;z-index:1}
+@keyframes scanLine{0%{top:-100%}60%{top:100%}100%{top:100%}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+.sysid{font-family:var(--mono);font-size:6px;color:var(--t3);letter-spacing:0.22em;margin-bottom:10px}
+.tc{font-family:var(--head);font-size:68px;font-weight:900;line-height:0.9;letter-spacing:1px}
+.rcb .tc{color:transparent;background:linear-gradient(135deg,var(--rcb2) 0%,var(--rcb) 60%,#8B1A0A 100%);-webkit-background-clip:text;background-clip:text}
+.csk .tc{color:transparent;background:linear-gradient(135deg,var(--csk2) 0%,var(--csk) 60%,#8B5E0A 100%);-webkit-background-clip:text;background-clip:text}
+.tn{font-family:var(--mono);font-size:8px;color:var(--t3);letter-spacing:0.1em;margin-top:4px}
+.tst{display:flex;gap:18px;margin-top:14px}
+.csk .tst{justify-content:flex-end}
+.tsb{display:flex;flex-direction:column;gap:3px}
+.csk .tsb{align-items:flex-end}
+.tsl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.08em}
+.tsv{font-family:var(--head);font-size:20px;font-weight:700;line-height:1;letter-spacing:0.5px}
+.rcb .tsv.a{color:var(--rcb2)}.csk .tsv.a{color:var(--csk2)}
+.inj-row{display:flex;gap:4px;flex-wrap:wrap;margin-top:12px}
+.csk .inj-row{justify-content:flex-end}
+.inj{font-family:var(--mono);font-size:6px;font-weight:600;letter-spacing:0.1em;padding:3px 7px;border:1px solid;border-radius:2px}
+.i-out{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.08)}
+.i-doubt{color:var(--warn);border-color:rgba(243,156,18,0.4);background:rgba(243,156,18,0.08)}
+.i-ok{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08)}
+
+/* CENTER */
+.ctr{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 14px;gap:8px;min-width:100px;
+  background:linear-gradient(180deg,rgba(212,168,67,0.05),transparent);
+  border-left:1px solid var(--b);border-right:1px solid var(--b);position:relative;z-index:1;
+  animation:fadeDown 0.6s cubic-bezier(0.16,1,0.3,1) 0.15s both}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+.vs{font-family:var(--head);font-size:11px;color:var(--gold);letter-spacing:0.5em}
+.vbo{width:28px;flex:1;min-height:80px;background:var(--s3);border:1px solid var(--b2);display:flex;flex-direction:column-reverse;overflow:hidden;border-radius:2px}
+.vbr{background:linear-gradient(180deg,var(--rcb2),var(--rcb));width:100%;transition:height 0.9s cubic-bezier(0.4,0,0.2,1)}
+.vbc{background:linear-gradient(180deg,var(--csk2),var(--csk));width:100%;transition:height 0.9s cubic-bezier(0.4,0,0.2,1)}
+.cpct{font-family:var(--head);font-size:11px;font-weight:700;color:var(--gold2);text-align:center;line-height:1.6;letter-spacing:1px}
+.mdt{font-family:var(--mono);font-size:6px;color:var(--t3);text-align:center;line-height:2;letter-spacing:0.06em}
+
+/* PROB BAR */
+.pbr{display:grid;grid-template-columns:64px 1fr 64px;align-items:center;gap:12px;
+  padding:12px 20px;background:var(--s1);border-bottom:1px solid var(--b2);position:relative;
+  animation:fadeUp 0.5s ease 0.3s both}
+.pbr::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(232,52,26,0.06) 0%,transparent 35%,transparent 65%,rgba(245,166,35,0.06) 100%)}
+.pp{font-family:var(--head);font-size:28px;font-weight:800;line-height:1;transition:all 0.4s;letter-spacing:0.5px}
+.pp.r{color:var(--rcb2)}.pp.c{color:var(--csk2);text-align:right}
+.hb{height:5px;background:var(--s3);display:flex;overflow:hidden;border-radius:3px;position:relative}
+.hbr{background:linear-gradient(90deg,var(--rcb),var(--rcb2));transition:width 0.9s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.hbc{background:linear-gradient(90deg,var(--csk2),var(--csk));flex:1;position:relative;overflow:hidden}
+.hbr::after,.hbc::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shimmer 2.5s ease-in-out infinite}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+
+/* VERDICT */
+.vr{display:flex;align-items:center;justify-content:space-between;padding:8px 20px;background:var(--s2);border-bottom:1px solid var(--b2)}
+.vt{font-family:var(--head);font-size:15px;font-weight:700;letter-spacing:3px;color:var(--gold2);animation:goldPulse 4s ease-in-out infinite}
+@keyframes goldPulse{0%,100%{color:var(--gold2)}50%{color:var(--csk2)}}
+.cf{font-family:var(--mono);font-size:7px;font-weight:600;letter-spacing:0.15em;padding:3px 10px;border:1px solid;border-radius:20px}
+.ch{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08)}
+.cm{color:var(--warn);border-color:rgba(243,156,18,0.4);background:rgba(243,156,18,0.08)}
+.cl{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.08)}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--b2);overflow-x:auto;scrollbar-width:none;background:var(--s1);position:relative;animation:fadeUp 0.5s ease 0.6s both}
+.tabs::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--rcb),var(--gold),var(--csk));opacity:0.4}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:var(--t3);
+  padding:13px 16px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;
+  margin-bottom:-1px;white-space:nowrap;transition:all 0.2s;position:relative}
+.tab.active{color:var(--gold2);border-bottom-color:var(--gold);background:rgba(212,168,67,0.05)}
+.tab:hover:not(.active){color:var(--t2);background:rgba(255,220,150,0.03)}
+.tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:tabSlide 0.3s ease both}
+@keyframes tabSlide{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* PANELS */
+.panel{display:none}.panel.active{display:block;animation:panelIn 0.3s cubic-bezier(0.16,1,0.3,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION */
+.sec{display:flex;align-items:center;gap:12px;padding:8px 20px;border-bottom:1px solid var(--b);background:var(--s1)}
+.stx{font-family:var(--mono);font-size:7px;font-weight:600;letter-spacing:0.25em;color:var(--gold);white-space:nowrap}
+.sl{flex:1;height:1px;background:linear-gradient(90deg,var(--b2),transparent)}
+
+/* MODEL SWITCH */
+.model-switch{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--b);background:var(--s2)}
+.ms-label{font-family:var(--mono);font-size:8px;color:var(--t3);letter-spacing:0.2em}
+.toggle-wrap{display:flex;align-items:center;gap:12px}
+.toggle-opt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.06em;color:var(--t3);transition:all 0.25s;cursor:pointer}
+.toggle-opt.active-l{color:var(--warn)}.toggle-opt.active-r{color:var(--ok)}
+.toggle-track{width:52px;height:28px;background:var(--s3);border:1px solid var(--b2);border-radius:14px;position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0}
+.toggle-track.on{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.35)}
+.toggle-thumb{position:absolute;top:4px;left:4px;width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,#FFD060,#F5A623);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+.toggle-track.on .toggle-thumb{left:28px;background:linear-gradient(135deg,#2ECC71,#1A8F45)}
+
+/* TOSS ROW */
+.toss-row{padding:10px 20px;border-bottom:1px solid var(--b);background:var(--s2);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.toss-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.2em}
+select#toss-sel{background:var(--s3);border:1px solid var(--b2);color:var(--t1);font-family:var(--mono);font-size:9px;padding:7px 12px;cursor:pointer;border-radius:3px;transition:border-color 0.2s;letter-spacing:0.05em;outline:none}
+select#toss-sel:hover{border-color:var(--b3)}
+select#toss-sel:focus{border-color:var(--gold)}
+
+/* PRED CARDS */
+.pred-main{padding:20px;border-bottom:1px solid var(--b)}
+.pred-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.pred-card{background:var(--s2);border:1px solid var(--b);padding:18px;position:relative;overflow:hidden;border-radius:3px;transition:border-color 0.3s}
+.pred-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pred-card.rcb-card{border-color:rgba(232,52,26,0.25);background:linear-gradient(135deg,rgba(232,52,26,0.08) 0%,var(--s2) 55%)}
+.pred-card.rcb-card::before{background:linear-gradient(90deg,var(--rcb),var(--rcb2),transparent)}
+.pred-card.csk-card{border-color:rgba(245,166,35,0.25);background:linear-gradient(135deg,rgba(245,166,35,0.08) 0%,var(--s2) 55%)}
+.pred-card.csk-card::before{background:linear-gradient(90deg,var(--csk),var(--csk2),transparent)}
+.pc-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.15em;margin-bottom:8px}
+.pc-pct{font-family:var(--head);font-size:52px;font-weight:800;line-height:0.9;letter-spacing:1px;animation:countUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.8s both}
+@keyframes countUp{from{opacity:0;transform:translateY(10px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.pc-pct.r{color:var(--rcb2)}.pc-pct.c{color:var(--csk2)}
+.pc-sub{font-family:var(--mono);font-size:8px;color:var(--t3);margin-top:8px;line-height:1.8}
+
+/* FACTORS */
+.factors-mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.fm-card{background:var(--s2);border:1px solid var(--b);padding:10px 12px;border-radius:3px}
+.fm-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.fm-name{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em}
+.fm-bar{height:3px;background:var(--s3);display:flex;overflow:hidden;border-radius:2px;margin-bottom:5px}
+.fm-r{background:linear-gradient(90deg,var(--rcb),var(--rcb2))}.fm-c{background:linear-gradient(90deg,var(--csk2),var(--csk))}
+.fm-vals{display:flex;justify-content:space-between}
+.fm-rv{font-family:var(--mono);font-size:7px;color:var(--rcb2)}.fm-cv{font-family:var(--mono);font-size:7px;color:var(--csk2)}
+
+/* INJERSTRIP */
+.inj-strip{background:var(--s2);border:1px solid var(--b);padding:14px 16px;border-radius:3px;margin-bottom:14px}
+.inj-title{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.2em;margin-bottom:10px}
+.inj-item{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--b)}
+.inj-item:last-child{border-bottom:none}
+.inj-name{font-family:var(--mono);font-size:8px;color:var(--t2);flex:1;padding-right:10px}
+.inj-delta{font-family:var(--head);font-size:14px;font-weight:700;letter-spacing:0.5px;white-space:nowrap}
+.neg{color:var(--err)}.pos{color:var(--ok)}.neu{color:var(--t3)}
+
+/* MODEL NOTES */
+.model-note{background:var(--s2);border:1px solid var(--b);border-radius:3px}
+.mn-row{display:flex;gap:12px;padding:9px 14px;border-bottom:1px solid var(--b);align-items:flex-start}
+.mn-row:last-child{border-bottom:none}
+.mn-key{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.1em;white-space:nowrap;min-width:100px;padding-top:2px;flex-shrink:0}
+.mn-val{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:1.8}
+
+/* ══ FORM ENGINE TAB ══ */
+.form-intro{font-family:var(--mono);font-size:8px;color:var(--t2);padding:12px 20px;line-height:1.9;border-bottom:1px solid var(--b);background:var(--s2)}
+.form-intro strong{color:var(--gold2)}
+.fp-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b2)}
+.fp-half{border-right:1px solid var(--b2)}.fp-half:last-child{border-right:none}
+.fp-hdr{padding:10px 16px;border-bottom:1px solid var(--b2);display:flex;align-items:baseline;gap:8px}
+.fp-hdr.r{background:linear-gradient(90deg,rgba(232,52,26,0.1),transparent)}
+.fp-hdr.c{background:linear-gradient(90deg,rgba(245,166,35,0.1),transparent)}
+.fp-team{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:2px}
+.fp-team.r{color:var(--rcb2)}.fp-team.c{color:var(--csk2)}
+.fp-match{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.08em;margin-left:auto}
+.fp-row{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--b);transition:background 0.15s}
+.fp-row:hover{background:var(--s2)}.fp-row:last-child{border-bottom:none}
+.fp-num{font-family:var(--mono);font-size:8px;color:var(--t3);width:14px;flex-shrink:0}
+.fp-info{flex:1;min-width:0}
+.fp-name{font-family:var(--head);font-size:12px;font-weight:600;color:var(--t1)}
+.fp-perf{font-family:var(--mono);font-size:7px;color:var(--t3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fp-bars{display:flex;flex-direction:column;gap:2px;width:50px;flex-shrink:0}
+.fp-bar{height:3px;border-radius:2px;transition:width 0.7s ease}
+.fp-bar.r{background:var(--rcb)}.fp-bar.c{background:var(--csk)}.fp-bar.g{background:var(--ok)}.fp-bar.w{background:var(--warn)}.fp-bar.e{background:var(--err)}
+.fp-score{font-family:var(--head);font-size:18px;font-weight:800;letter-spacing:0.5px;width:38px;text-align:right;flex-shrink:0}
+.fp-score.hot{color:var(--ok)}.fp-score.mid{color:var(--warn)}.fp-score.cold{color:var(--err)}
+.fp-delta{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:0.06em;width:38px;text-align:right;flex-shrink:0}
+.fp-delta.up{color:var(--ok)}.fp-delta.dn{color:var(--err)}.fp-delta.ne{color:var(--t3)}
+.fp-sum{padding:8px 16px;display:flex;justify-content:space-between;align-items:center;background:var(--s1);border-top:1px solid var(--b2)}
+.fp-sum-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em}
+.fp-sum-val{font-family:var(--head);font-size:16px;font-weight:800;letter-spacing:0.5px}
+
+/* NET FORM */
+.nf-wrap{padding:16px 20px;background:var(--s2);border-bottom:1px solid var(--b2)}
+.nf-title{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.2em;margin-bottom:12px}
+.nf-row{display:flex;align-items:center;gap:12px;margin-bottom:7px}
+.nf-lbl{font-family:var(--mono);font-size:8px;color:var(--t2);flex:1}
+.nf-track{width:140px;height:5px;background:rgba(255,220,150,0.06);border-radius:3px;overflow:hidden;flex-shrink:0}
+.nf-fill{height:100%;border-radius:3px}
+.nf-val{font-family:var(--head);font-size:14px;font-weight:700;letter-spacing:0.5px;width:50px;text-align:right;flex-shrink:0}
+.nf-row.total{border-top:1px solid var(--b2);padding-top:10px;margin-top:4px}
+.total .nf-lbl{color:var(--t1);font-weight:700;font-family:var(--mono)}
+
+/* ══ SQUADS ══ */
+.sq-split{display:grid;grid-template-columns:1fr 1fr}
+.sqh-half{border-right:1px solid var(--b2)}.sqh-half:last-child{border-right:none}
+.sqhd{padding:10px 16px;border-bottom:1px solid var(--b2);display:flex;align-items:center;gap:8px}
+.rcb-sq .sqhd{background:linear-gradient(90deg,rgba(232,52,26,0.1),transparent)}
+.csk-sq .sqhd{background:linear-gradient(90deg,rgba(245,166,35,0.1),transparent)}
+.sqhc{font-family:var(--head);font-size:20px;font-weight:800;letter-spacing:2px}
+.rcb-sq .sqhc{color:var(--rcb2)}.csk-sq .sqhc{color:var(--csk2)}
+.sqhl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em}
+.sq-sec{padding:5px 16px;border-bottom:1px solid var(--b);font-family:var(--mono);font-size:6px;color:var(--gold);letter-spacing:0.25em;background:var(--s2)}
+.sq-scroll{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--b2) transparent}
+.pr{display:flex;align-items:center;gap:8px;padding:7px 16px;border-bottom:1px solid var(--b);cursor:default;transition:background 0.15s;position:relative}
+.pr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;opacity:0;transition:opacity 0.15s}
+.rcb-sq .pr::before{background:var(--rcb)}.csk-sq .pr::before{background:var(--csk)}
+.pr:hover{background:var(--s2)}.pr:hover::before{opacity:1}
+.pi{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;font-weight:700;flex-shrink:0;letter-spacing:0}
+.rcb-sq .pi{background:rgba(232,52,26,0.15);color:var(--rcb2);border:1px solid rgba(232,52,26,0.3)}
+.csk-sq .pi{background:rgba(245,166,35,0.15);color:var(--csk2);border:1px solid rgba(245,166,35,0.3)}
+.pinfo{flex:1;min-width:0}
+.pn{font-family:var(--head);font-size:12px;font-weight:600;color:var(--t1)}
+.pm{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.04em;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spark{display:flex;gap:2px;align-items:flex-end;flex-shrink:0;height:14px}
+.spb{width:4px;border-radius:1px}
+.rcb-sq .spb{background:var(--rcb2)}.csk-sq .spb{background:var(--csk2)}
+.psc{font-family:var(--head);font-size:16px;letter-spacing:1px;flex-shrink:0;min-width:32px;text-align:right}
+.rcb-sq .psc{color:var(--rcb2)}.csk-sq .psc{color:var(--csk2)}
+.ptg{font-family:var(--mono);font-size:6px;font-weight:600;padding:2px 6px;border:1px solid;flex-shrink:0;border-radius:2px;letter-spacing:0.08em}
+.tg-fire{color:var(--rcb2);border-color:rgba(232,52,26,0.4);background:rgba(232,52,26,0.1)}
+.tg-hot{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08)}
+.tg-ok{color:var(--warn);border-color:rgba(243,156,18,0.4);background:rgba(243,156,18,0.08)}
+.tg-cold{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.1)}
+.tg-out{color:var(--err);border-color:rgba(231,76,60,0.5);background:rgba(231,76,60,0.12);font-style:italic}
+.inj-badge{font-family:var(--mono);font-size:5px;color:var(--err);border:1px solid rgba(231,76,60,0.3);padding:1px 3px;margin-left:3px;border-radius:2px}
+.sq-note{padding:9px 20px;font-family:var(--mono);font-size:7px;color:var(--t3);line-height:2.1;border-bottom:1px solid var(--b)}
+
+/* ══ H2H ══ */
+.h2h-band{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--b2)}
+.h2h-band.two{grid-template-columns:1fr 1fr}
+.hstat{padding:16px 12px;text-align:center;border-right:1px solid var(--b)}
+.hstat:last-child{border-right:none}
+.hl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em;margin-bottom:4px}
+.hv{font-family:var(--head);font-size:24px;font-weight:800;letter-spacing:0.5px}
+.hv.r{color:var(--rcb2)}.hv.c{color:var(--csk2)}.hv.g{color:var(--gold2)}
+.hs{font-family:var(--mono);font-size:7px;color:var(--t3);margin-top:2px}
+.sc-wrap{padding:16px 20px;border-bottom:1px solid var(--b2)}
+.sc-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sc-title{font-family:var(--head);font-size:14px;font-weight:700;letter-spacing:1.5px;flex:1}
+.sc-badge{font-family:var(--mono);font-size:7px;padding:3px 10px;border:1px solid;border-radius:12px;letter-spacing:0.08em}
+.sb-w{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.06)}
+.sb-l{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.06)}
+.sc-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--b)}
+.sc-row:last-child{border-bottom:none}
+.sc-lbl{font-family:var(--mono);font-size:8px;color:var(--t2)}
+.sc-val{font-family:var(--head);font-size:15px;font-weight:700;letter-spacing:0.5px}
+.sc-bar-wrap{flex:1;height:4px;background:var(--s3);overflow:hidden;border-radius:2px;margin:0 14px}
+.sc-bar-r{height:100%;background:linear-gradient(90deg,var(--rcb),var(--rcb2));border-radius:2px}
+.sc-bar-c{height:100%;float:right;background:linear-gradient(90deg,var(--csk2),var(--csk));border-radius:2px}
+.matchup-row{display:flex;align-items:center;justify-content:space-between;padding:8px 20px;border-bottom:1px solid var(--b)}
+.mu-l{font-family:var(--mono);font-size:8px;color:var(--t2);flex:1}
+.mu-r{font-family:var(--mono);font-size:8px;color:var(--t2);text-align:right;flex:1}
+.mu-mid{font-family:var(--head);font-size:13px;font-weight:700;letter-spacing:1px;color:var(--gold);text-align:center;min-width:30px}
+
+/* ══ WAR ROOM TAB ══ */
+.wr-hero{padding:28px 24px 22px;border-bottom:1px solid var(--b2);background:linear-gradient(180deg,rgba(212,168,67,0.06) 0%,transparent 100%);text-align:center;position:relative;overflow:hidden}
+.wr-hero::before{content:'WAR ROOM';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--head);font-size:110px;font-weight:900;letter-spacing:8px;
+  color:rgba(212,168,67,0.03);pointer-events:none;white-space:nowrap;
+  animation:watermarkFloat 8s ease-in-out infinite alternate}
+@keyframes watermarkFloat{from{transform:translate(-50%,-50%) rotate(-1deg)}to{transform:translate(-50%,-50%) rotate(1deg)}}
+.wr-title{font-family:var(--head);font-size:36px;font-weight:900;letter-spacing:4px;color:var(--gold2);position:relative}
+.wr-sub{font-family:var(--mono);font-size:8px;color:var(--t3);letter-spacing:0.2em;margin-top:4px;position:relative}
+.wr-board{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b2)}
+.wr-side{padding:20px 24px;text-align:center;border-right:1px solid var(--b2);position:relative;overflow:hidden}
+.wr-side:last-child{border-right:none}
+.wr-side::before{content:'';position:absolute;inset:0;pointer-events:none}
+.wr-side.amit-side::before{background:linear-gradient(135deg,rgba(243,156,18,0.06) 0%,transparent 60%)}
+.wr-side.claude-side::before{background:linear-gradient(135deg,rgba(46,204,113,0.06) 0%,transparent 60%)}
+.wr-name{font-family:var(--mono);font-size:8px;color:var(--t3);letter-spacing:0.15em;margin-bottom:8px}
+.wr-score{font-family:var(--head);font-size:64px;font-weight:900;line-height:1;letter-spacing:2px}
+.wr-score.tied{color:var(--gold2)}.wr-score.lead{color:var(--ok)}.wr-score.trail{color:var(--err)}
+.wr-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em;margin-top:4px}
+.wr-match-log{border-bottom:1px solid var(--b2)}
+.wml-hdr{display:grid;grid-template-columns:1fr 80px 100px 100px;gap:0;padding:7px 20px;border-bottom:1px solid var(--b2);background:var(--s1)}
+.wml-hdr-lbl{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.15em}
+.wml-row{display:grid;grid-template-columns:1fr 80px 100px 100px;gap:0;padding:10px 20px;border-bottom:1px solid var(--b);align-items:center}
+.wml-row:last-child{border-bottom:none}
+.wml-match{font-family:var(--mono);font-size:8px;color:var(--t2)}
+.wml-match .mdate{font-size:7px;color:var(--t3);display:block;margin-top:2px}
+.wml-result{font-family:var(--head);font-size:13px;font-weight:700;letter-spacing:1px}
+.badge{font-family:var(--mono);font-size:7px;padding:3px 10px;border:1px solid;border-radius:12px;letter-spacing:0.08em;display:inline-block}
+.badge-ok{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08)}
+.badge-fail{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.08)}
+.badge-pend{color:var(--t3);border-color:var(--b2);background:var(--s3)}
+.badge-warn{color:var(--warn);border-color:rgba(243,156,18,0.4);background:rgba(243,156,18,0.08)}
+.wr-pm{padding:0;border-bottom:1px solid var(--b2)}
+.pm-title{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.2em;padding:8px 20px;border-bottom:1px solid var(--b);background:var(--s1)}
+.pm-row{display:flex;gap:12px;padding:9px 20px;border-bottom:1px solid var(--b);align-items:flex-start}
+.pm-row:last-child{border-bottom:none}
+.pm-key{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.1em;white-space:nowrap;min-width:100px;padding-top:2px;flex-shrink:0}
+.pm-val{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:1.8}
+.wr-narrative{padding:16px 20px;background:var(--s2);border-bottom:1px solid var(--b2)}
+.wr-narrative-lbl{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.2em;margin-bottom:6px}
+.wr-narrative-txt{font-family:var(--head);font-size:15px;font-weight:700;line-height:1.5;color:var(--t1);letter-spacing:0.5px}
+
+/* ══ ABOUT ══ */
+.about-panel{}
+.about-hero{padding:40px 24px 32px;text-align:center;background:linear-gradient(180deg,rgba(212,168,67,0.06) 0%,transparent 100%);border-bottom:1px solid var(--b2);position:relative;overflow:hidden}
+.about-hero::before{content:'WAR ROOM';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--head);font-size:140px;letter-spacing:8px;color:rgba(212,168,67,0.035);pointer-events:none;white-space:nowrap;animation:watermarkFloat 8s ease-in-out infinite alternate}
+.about-title{font-family:var(--head);font-size:46px;font-weight:900;letter-spacing:3px;color:var(--gold2);line-height:1;position:relative}
+.about-sub{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:0.2em;margin-top:8px;position:relative}
+.about-badge{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:6px 14px;border:1px solid rgba(212,168,67,0.3);border-radius:20px;font-family:var(--mono);font-size:8px;color:var(--gold);letter-spacing:0.1em;background:rgba(212,168,67,0.06);position:relative}
+.about-stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--b2)}
+.about-stat{padding:20px 16px;text-align:center;border-right:1px solid var(--b)}
+.about-stat:last-child{border-right:none}
+.about-stat-num{font-family:var(--head);font-size:32px;letter-spacing:2px;color:var(--gold2);line-height:1;animation:countUp 0.7s cubic-bezier(0.16,1,0.3,1) both}
+.about-stat:nth-child(1) .about-stat-num{animation-delay:0.1s}
+.about-stat:nth-child(2) .about-stat-num{animation-delay:0.2s}
+.about-stat:nth-child(3) .about-stat-num{animation-delay:0.3s}
+.about-stat:nth-child(4) .about-stat-num{animation-delay:0.4s}
+.about-stat-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.12em;margin-top:4px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b2)}
+.about-card{padding:24px;border-right:1px solid var(--b);border-bottom:1px solid var(--b)}
+.about-card:nth-child(even){border-right:none}
+.about-card:nth-last-child(-n+2){border-bottom:none}
+.about-card-icon{font-size:22px;margin-bottom:10px}
+.about-card-title{font-family:var(--head);font-size:16px;letter-spacing:2px;color:var(--gold2);margin-bottom:8px}
+.about-card-body{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:2;letter-spacing:0.02em}
+.about-card-body strong{color:var(--gold);font-weight:600}
+.about-models{padding:24px;border-bottom:1px solid var(--b2)}
+.about-model-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.about-model-card{background:var(--s2);border:1px solid var(--b);padding:16px;border-radius:3px;position:relative;overflow:hidden}
+.about-model-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.about-model-card.amit::before{background:linear-gradient(90deg,var(--warn),transparent)}
+.about-model-card.claude::before{background:linear-gradient(90deg,var(--ok),transparent)}
+.about-model-name{font-family:var(--head);font-size:18px;letter-spacing:2px;margin-bottom:6px}
+.about-model-card.amit .about-model-name{color:var(--warn)}
+.about-model-card.claude .about-model-name{color:var(--ok)}
+.about-model-spec{font-family:var(--mono);font-size:7px;color:var(--t2);line-height:2}
+.about-model-spec strong{color:var(--gold)}
+.about-footer{padding:20px 24px;text-align:center}
+.about-footer-txt{font-family:var(--mono);font-size:8px;color:var(--t3);line-height:2;letter-spacing:0.05em}
+
+/* ══ STAR CANVAS ══ */
+#star-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;opacity:0.55}
+
+/* ══ HEADER STATS STRIP ══ */
+/* Replaces the old .tst / hdr-news approach */
+/* Two compact stat rows below the team name */
+.hdr-stats{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.csk .hdr-stats{align-items:flex-end}
+
+/* H2H win total */
+.hstat-h2h{display:flex;align-items:center;gap:8px}
+.csk .hstat-h2h{flex-direction:row-reverse}
+.h2h-big{font-family:var(--head);font-size:38px;font-weight:900;line-height:1;letter-spacing:-1px}
+.rcb .h2h-big{color:var(--rcb2);text-shadow:0 0 20px rgba(232,52,26,0.4)}
+.csk .h2h-big{color:var(--csk2);text-shadow:0 0 20px rgba(245,166,35,0.4)}
+.h2h-meta{display:flex;flex-direction:column;gap:2px}
+.h2h-label{font-family:var(--mono);font-size:6px;color:var(--t3);letter-spacing:0.18em}
+.h2h-sub{font-family:var(--mono);font-size:8px;color:var(--t2);letter-spacing:0.06em}
+.h2h-sub strong{color:var(--gold2)}
+
+/* Venue win% arc */
+.venue-row{display:flex;align-items:center;gap:8px}
+.csk .venue-row{flex-direction:row-reverse}
+.venue-arc{position:relative;width:36px;height:36px;flex-shrink:0}
+.venue-arc svg{transform:rotate(-90deg)}
+.venue-arc-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:10px;font-weight:800;letter-spacing:0}
+.rcb .venue-arc-lbl{color:var(--rcb2)}
+.csk .venue-arc-lbl{color:var(--csk2)}
+.venue-meta{display:flex;flex-direction:column;gap:2px}
+.venue-label{font-family:var(--mono);font-size:6px;color:var(--t3);letter-spacing:0.18em}
+.venue-val{font-family:var(--mono);font-size:8px;color:var(--t2)}
+
+/* Last 5 results */
+.last5-row{display:flex;align-items:center;gap:6px}
+.csk .last5-row{flex-direction:row-reverse}
+.l5-label{font-family:var(--mono);font-size:6px;color:var(--t3);letter-spacing:0.14em;flex-shrink:0}
+.l5-dots{display:flex;gap:3px}
+.l5d{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:0;flex-shrink:0;transition:transform 0.15s}
+.l5d:hover{transform:scale(1.15)}
+.l5d.win{color:var(--ok);border:1px solid rgba(46,204,113,0.45);background:rgba(46,204,113,0.14);box-shadow:0 0 6px rgba(46,204,113,0.2)}
+.l5d.loss{color:var(--err);border:1px solid rgba(231,76,60,0.45);background:rgba(231,76,60,0.1);box-shadow:0 0 6px rgba(231,76,60,0.15)}
+
+/* ══ FORM ENGINE — proper global CSS ══ */
+.fp-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b2);align-items:start}
+.fp-half{min-width:0;border-right:1px solid var(--b2)}.fp-half:last-child{border-right:none}
+.fp-hdr{padding:9px 16px;border-bottom:1px solid var(--b2);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.fp-hdr.r{background:linear-gradient(90deg,rgba(232,52,26,0.1),transparent)}
+.fp-hdr.c{background:linear-gradient(90deg,rgba(245,166,35,0.1),transparent)}
+.fp-team{font-family:var(--head);font-size:16px;font-weight:800;letter-spacing:2px}
+.fp-team.r{color:var(--rcb2)}.fp-team.c{color:var(--csk2)}
+.fp-match{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.06em;margin-left:auto;white-space:nowrap}
+/* row: num | name+perf | bars | score | delta */
+.fp-row{display:grid;grid-template-columns:18px 1fr 48px 34px 44px;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid var(--b);transition:background 0.15s}
+.fp-row:hover{background:var(--s2)}.fp-row:last-child{border-bottom:none}
+.fp-num{font-family:var(--mono);font-size:8px;color:var(--t3);text-align:center}
+.fp-info{min-width:0}
+.fp-name{font-family:var(--head);font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fp-perf{font-family:var(--mono);font-size:7px;color:var(--t3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fp-bars{display:flex;flex-direction:column;gap:2px;width:48px}
+.fp-bar{height:3px;border-radius:2px;transition:width 0.7s ease}
+.fp-bar.r{background:var(--rcb)}.fp-bar.c{background:var(--csk)}.fp-bar.g{background:var(--ok)}.fp-bar.w{background:var(--warn)}.fp-bar.e{background:var(--err)}
+.fp-score{font-family:var(--head);font-size:17px;font-weight:800;letter-spacing:0.5px;text-align:right}
+.fp-score.hot{color:var(--ok)}.fp-score.mid{color:var(--warn)}.fp-score.cold{color:var(--err)}
+.fp-delta{font-family:var(--mono);font-size:7px;font-weight:700;text-align:right;white-space:nowrap}
+.fp-delta.up{color:var(--ok)}.fp-delta.dn{color:var(--err)}.fp-delta.ne{color:var(--t3)}
+.fp-sum{padding:8px 16px;display:flex;justify-content:space-between;align-items:center;background:var(--s1);border-top:1px solid var(--b2)}
+.fp-sum-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em}
+.fp-sum-val{font-family:var(--head);font-size:15px;font-weight:800;letter-spacing:0.5px}
+.form-intro{font-family:var(--mono);font-size:8px;color:var(--t2);padding:11px 20px;line-height:1.9;border-bottom:1px solid var(--b);background:var(--s2)}
+.form-intro strong{color:var(--gold2)}
+.nf-wrap{padding:16px 20px;background:var(--s2);border-bottom:1px solid var(--b2)}
+.nf-title{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.2em;margin-bottom:12px}
+.nf-row{display:flex;align-items:center;gap:12px;margin-bottom:7px}
+.nf-lbl{font-family:var(--mono);font-size:8px;color:var(--t2);flex:1}
+.nf-track{width:140px;height:5px;background:rgba(255,220,150,0.06);border-radius:3px;overflow:hidden;flex-shrink:0}
+.nf-fill{height:100%;border-radius:3px}
+.nf-val{font-family:var(--head);font-size:14px;font-weight:700;letter-spacing:0.5px;width:50px;text-align:right;flex-shrink:0}
+.nf-row.total{border-top:1px solid var(--b2);padding-top:10px;margin-top:4px}
+.total .nf-lbl{color:var(--t1);font-family:var(--mono)}
+
+/* ══ SQUADS — proper global CSS ══ */
+.sq-split{display:grid;grid-template-columns:1fr 1fr}
+.sqh-half{border-right:1px solid var(--b2);min-width:0;overflow:hidden}.sqh-half:last-child{border-right:none}
+.sqhd{padding:10px 14px;border-bottom:1px solid var(--b2);display:flex;align-items:center;gap:8px}
+.rcb-sq .sqhd{background:linear-gradient(90deg,rgba(232,52,26,0.1),transparent)}
+.csk-sq .sqhd{background:linear-gradient(90deg,rgba(245,166,35,0.1),transparent)}
+.sqhc{font-family:var(--head);font-size:18px;font-weight:800;letter-spacing:2px}
+.rcb-sq .sqhc{color:var(--rcb2)}.csk-sq .sqhc{color:var(--csk2)}
+.sqhl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em}
+.sq-sec{padding:4px 14px;border-bottom:1px solid var(--b);font-family:var(--mono);font-size:6px;color:var(--gold);letter-spacing:0.25em;background:var(--s2)}
+.sq-scroll{max-height:540px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--b2) transparent}
+/* row: avatar | info | spark | score | tag */
+.pr{display:grid;grid-template-columns:26px 1fr 22px 28px auto;align-items:center;gap:5px;padding:6px 12px;border-bottom:1px solid var(--b);transition:background 0.15s;position:relative}
+.pr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;opacity:0;transition:opacity 0.15s}
+.rcb-sq .pr::before{background:var(--rcb)}.csk-sq .pr::before{background:var(--csk)}
+.pr:hover{background:var(--s2)}.pr:hover::before{opacity:1}
+.pi{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8px;font-weight:700;flex-shrink:0;letter-spacing:0}
+.rcb-sq .pi{background:rgba(232,52,26,0.15);color:var(--rcb2);border:1px solid rgba(232,52,26,0.3)}
+.csk-sq .pi{background:rgba(245,166,35,0.15);color:var(--csk2);border:1px solid rgba(245,166,35,0.3)}
+.pinfo{min-width:0}
+.pn{font-family:var(--head);font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pm{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.04em;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spark{display:flex;gap:2px;align-items:flex-end;height:14px;width:22px}
+.spb{width:3px;border-radius:1px}
+.rcb-sq .spb{background:var(--rcb2)}.csk-sq .spb{background:var(--csk2)}
+.psc{font-family:var(--head);font-size:14px;letter-spacing:1px;flex-shrink:0;text-align:center;width:28px}
+.rcb-sq .psc{color:var(--rcb2)}.csk-sq .psc{color:var(--csk2)}
+.ptg{font-family:var(--mono);font-size:6px;font-weight:600;padding:2px 5px;border:1px solid;flex-shrink:0;border-radius:2px;letter-spacing:0.06em;white-space:nowrap}
+.tg-fire{color:var(--rcb2);border-color:rgba(232,52,26,0.4);background:rgba(232,52,26,0.1)}
+.tg-hot{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08)}
+.tg-ok{color:var(--warn);border-color:rgba(243,156,18,0.4);background:rgba(243,156,18,0.08)}
+.tg-cold{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.1)}
+.tg-out{color:var(--err);border-color:rgba(231,76,60,0.5);background:rgba(231,76,60,0.12)}
+.inj-badge{font-family:var(--mono);font-size:5px;color:var(--err);border:1px solid rgba(231,76,60,0.3);padding:1px 3px;margin-left:3px;border-radius:2px}
+.sq-note{padding:8px 20px;font-family:var(--mono);font-size:7px;color:var(--t3);line-height:2;border-bottom:1px solid var(--b)}
+
+/* ══ GRAPHICS ENHANCEMENTS ══ */
+.sec{position:relative;overflow:hidden}
+.sec::after{content:'';position:absolute;left:0;bottom:0;width:40%;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0.4}
+.about-card{position:relative;overflow:hidden;transition:background 0.2s}
+.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity 0.3s}
+.about-card:hover{background:var(--s2)}.about-card:hover::before{opacity:1}
+.about-card:nth-child(odd)::before{background:linear-gradient(90deg,var(--rcb),transparent)}
+.about-card:nth-child(even)::before{background:linear-gradient(90deg,var(--gold),transparent)}
+
+/* ══ ABOUT — AI+HUMAN THESIS ══ */
+.ae-thesis{
+  padding:36px 24px 28px;
+  border-bottom:1px solid var(--b2);
+  background:linear-gradient(180deg,rgba(212,168,67,0.05) 0%,transparent 100%);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.ae-thesis::before{
+  content:'FUTURE';position:absolute;top:50%;left:50%;transform:translate(-50%,-48%);
+  font-family:var(--head);font-size:130px;font-weight:900;letter-spacing:14px;
+  color:rgba(212,168,67,0.028);pointer-events:none;white-space:nowrap;
+  animation:watermarkFloat 10s ease-in-out infinite alternate;
+}
+.ae-thesis-eyebrow{font-family:var(--mono);font-size:8px;color:var(--gold);letter-spacing:0.25em;margin-bottom:12px;position:relative}
+.ae-thesis-headline{font-family:var(--head);font-size:36px;font-weight:900;letter-spacing:2px;color:var(--t1);line-height:1.1;position:relative;margin-bottom:12px}
+.ae-thesis-sub{font-family:var(--mono);font-size:9px;color:var(--t2);letter-spacing:0.05em;line-height:1.9;position:relative}
+
+/* FLOW DIAGRAM */
+.ae-flow{
+  border-bottom:1px solid var(--b2);
+  background:var(--s2);
+}
+.ae-flow-title{
+  font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.25em;
+  padding:10px 20px;border-bottom:1px solid var(--b);background:var(--s1);
+}
+.ae-flow-diagram{
+  display:grid;
+  grid-template-columns:1fr auto 1fr auto 1fr;
+  align-items:stretch;
+  border-bottom:1px solid var(--b2);
+}
+
+/* Node cards */
+.ae-node{
+  padding:20px 18px;
+  display:flex;flex-direction:column;gap:4px;
+  position:relative;overflow:hidden;
+}
+.ae-node::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.human-node{background:linear-gradient(180deg,rgba(232,52,26,0.07) 0%,transparent 50%)}
+.human-node::before{background:linear-gradient(90deg,var(--rcb),var(--rcb2),transparent)}
+.collab-node{background:linear-gradient(180deg,rgba(212,168,67,0.07) 0%,transparent 50%);border-left:1px solid var(--b);border-right:1px solid var(--b)}
+.collab-node::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ai-node{background:linear-gradient(180deg,rgba(46,204,113,0.07) 0%,transparent 50%)}
+.ai-node::before{background:linear-gradient(90deg,transparent,var(--ok),var(--ok))}
+.ae-node-icon{font-size:18px;margin-bottom:4px}
+.ae-node-name{font-family:var(--head);font-size:20px;font-weight:900;letter-spacing:2px;line-height:1}
+.rcb .ae-node-name, .human-node .ae-node-name{color:var(--rcb2)}
+.ae-node-role{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.12em;margin-bottom:8px;margin-top:2px}
+.ae-node-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ae-node-list li{font-family:var(--mono);font-size:7px;color:var(--t2);letter-spacing:0.04em;display:flex;align-items:center;gap:5px}
+.ae-node-list li::before{content:'›';color:var(--gold);flex-shrink:0}
+
+/* Arrows between nodes */
+.ae-arrow-wrap{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;padding:0 8px;min-width:70px;
+}
+.ae-arrow-line{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--b3),transparent)}
+.ae-arrow-label{font-family:var(--mono);font-size:6px;color:var(--t3);letter-spacing:0.1em;text-align:center;white-space:nowrap}
+.ae-arrow-label-2{color:rgba(255,220,150,0.2)}
+
+/* Role detail cards */
+.ae-roles{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--b2)}
+.ae-role-card{padding:20px 22px;border-right:1px solid var(--b)}
+.ae-role-card:last-child{border-right:none}
+.human-role{background:linear-gradient(135deg,rgba(232,52,26,0.04) 0%,transparent 60%)}
+.ai-role{background:linear-gradient(135deg,rgba(46,204,113,0.04) 0%,transparent 60%)}
+.ae-role-who{font-family:var(--mono);font-size:7px;font-weight:700;letter-spacing:0.18em;margin-bottom:8px}
+.human-role .ae-role-who{color:var(--rcb2)}
+.ai-role .ae-role-who{color:var(--ok)}
+.ae-role-body{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:1.9;letter-spacing:0.02em}
+.ae-role-body em{color:var(--gold2);font-style:normal;font-weight:600}
+
+/* Manifesto */
+.ae-manifesto{
+  padding:24px;
+  border-bottom:1px solid var(--b2);
+  background:linear-gradient(135deg,rgba(212,168,67,0.04) 0%,transparent 60%);
+}
+.ae-manifesto-lbl{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.22em;margin-bottom:10px}
+.ae-manifesto-txt{font-family:var(--head);font-size:17px;font-weight:700;line-height:1.55;color:var(--t1);letter-spacing:0.3px;margin-bottom:14px}
+.ae-manifesto-txt em{color:var(--gold2);font-style:normal}
+.ae-manifesto-pills{display:flex;gap:7px;flex-wrap:wrap}
+
+/* ══ ABOUT — existing pieces ══ */
+.about-bio{padding:28px 24px;border-bottom:1px solid var(--b2);display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;background:linear-gradient(135deg,rgba(212,168,67,0.04) 0%,transparent 60%)}
+.about-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--rcb),var(--rcb2));border:2px solid rgba(232,52,26,0.4);display:flex;align-items:center;justify-content:center;font-family:var(--head);font-size:28px;font-weight:900;color:var(--t1);flex-shrink:0;position:relative}
+.about-avatar::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(212,168,67,0.2);animation:avatarPulse 3s ease-in-out infinite}
+@keyframes avatarPulse{0%,100%{opacity:0.3;transform:scale(1)}50%{opacity:0.8;transform:scale(1.05)}}
+.about-bio-name{font-family:var(--head);font-size:28px;font-weight:900;letter-spacing:2px;color:var(--gold2);line-height:1}
+.about-bio-role{font-family:var(--mono);font-size:8px;color:var(--rcb2);letter-spacing:0.15em;margin-top:4px}
+.about-bio-txt{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:2;margin-top:10px;letter-spacing:0.02em}
+.about-bio-txt strong{color:var(--gold2)}
+.about-experiment{padding:20px 24px;border-bottom:1px solid var(--b2);background:var(--s2)}
+.ae-title{font-family:var(--head);font-size:16px;font-weight:800;letter-spacing:2px;color:var(--gold2);margin-bottom:8px}
+.ae-body{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:2;letter-spacing:0.02em}
+.ae-body strong{color:var(--gold)}
+.ae-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ae-pill{font-family:var(--mono);font-size:7px;padding:3px 10px;border:1px solid var(--b2);border-radius:12px;color:var(--t2);background:var(--s3)}
+
+/* ══ WAR ROOM GUIDE STRIP ══ */
+.wr-guide{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 20px;border-bottom:1px solid var(--b2);background:var(--s2);
+}
+.wr-guide-icon{font-size:14px;color:var(--gold);flex-shrink:0;margin-top:1px}
+.wr-guide-txt{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:1.8;letter-spacing:0.03em}
+.wr-guide-txt strong{color:var(--gold2)}
+
+/* ══ MATCH CARDS ══ */
+.mc{border-bottom:1px solid var(--b2);position:relative;overflow:hidden}
+.mc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.mc-done::before{background:linear-gradient(180deg,var(--ok),rgba(46,204,113,0.3))}
+.mc-current::before{background:linear-gradient(180deg,var(--gold),var(--rcb));animation:currentPulse 2s ease-in-out infinite}
+@keyframes currentPulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.mc-upcoming::before{background:var(--b2)}
+
+.mc-header{
+  display:flex;align-items:center;gap:12px;padding:12px 20px 12px 24px;
+  flex-wrap:wrap;
+}
+.mc-done .mc-header{background:linear-gradient(90deg,rgba(46,204,113,0.04),transparent 60%)}
+.mc-current .mc-header{background:linear-gradient(90deg,rgba(212,168,67,0.06),transparent 60%)}
+.mc-upcoming .mc-header{opacity:0.55}
+
+.mc-num{
+  font-family:var(--mono);font-size:9px;font-weight:700;color:var(--t3);
+  letter-spacing:0.15em;flex-shrink:0;min-width:20px;
+}
+.mc-teams{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.mc-team-r{font-family:var(--head);font-size:18px;font-weight:800;color:var(--rcb2);letter-spacing:1px}
+.mc-team-o{font-family:var(--head);font-size:18px;font-weight:800;letter-spacing:1px;color:var(--t2)}
+.mc-vs{font-family:var(--mono);font-size:8px;color:var(--t3);letter-spacing:0.1em}
+.mc-meta{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
+.mc-date{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.08em}
+.mc-result{font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:0.08em}
+.mc-result.win{color:var(--ok)}.mc-result.pending{color:var(--warn)}.mc-result.loss{color:var(--err)}
+
+/* VIEW PREDICTION button */
+.mc-btn{
+  font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:0.12em;
+  padding:7px 14px;border-radius:3px;white-space:nowrap;flex-shrink:0;
+  text-decoration:none;display:inline-flex;align-items:center;cursor:pointer;
+  transition:all 0.2s;border:1px solid;
+}
+.mc-btn-done{
+  color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08);
+}
+.mc-btn-done:hover{background:rgba(46,204,113,0.18);border-color:rgba(46,204,113,0.7);transform:translateY(-1px);box-shadow:0 4px 12px rgba(46,204,113,0.2)}
+.mc-btn-current{
+  color:var(--gold2);border-color:rgba(212,168,67,0.4);background:rgba(212,168,67,0.08);
+  cursor:default;font-size:7px;
+}
+.mc-btn-upcoming{
+  color:var(--t3);border-color:var(--b);background:transparent;cursor:default;font-size:7px;
+}
+
+/* Card body */
+.mc-body{padding:0 20px 12px 24px}
+.mc-pred-row{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;
+  align-items:center;gap:0;
+  border:1px solid var(--b);border-radius:4px;overflow:hidden;
+  margin-bottom:8px;
+}
+.mc-pred-block{
+  padding:10px 12px;display:flex;flex-direction:column;gap:4px;
+  background:var(--s2);
+}
+.mc-divider{width:1px;background:var(--b);align-self:stretch;flex-shrink:0}
+.mc-pred-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em}
+.mc-pred-val{font-family:var(--head);font-size:20px;font-weight:800;letter-spacing:0.5px;line-height:1}
+.mc-pred-note{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.06em}
+.mc-pm{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:8px 10px;background:var(--s1);border:1px solid var(--b);border-radius:3px;
+}
+.mc-pm-key{font-family:var(--mono);font-size:7px;color:var(--gold);letter-spacing:0.12em;flex-shrink:0;padding-top:1px;min-width:88px}
+.mc-pm-val{font-family:var(--mono);font-size:8px;color:var(--t2);line-height:1.7}
+.mc-upcoming-note{
+  font-family:var(--mono);font-size:7px;color:var(--t3);
+  padding:8px 24px 12px;line-height:1.9;letter-spacing:0.04em;
+}
+
+/* ══ MOBILE ══ */
+@media(max-width:640px){
+  .hdr{grid-template-columns:1fr 1fr}
+  .th.rcb{padding:14px 12px 14px;border-right:1px solid var(--b)}
+  .th.csk{padding:14px 12px 14px;text-align:right}
+  .ctr{display:none}
+  .hdr::after{content:'5 APR 2026 · CHINNASWAMY · 19:30 IST';grid-column:1/-1;display:block;
+    font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em;padding:6px 12px;text-align:center;border-top:1px solid var(--b);background:var(--s1)}
+  .tc{font-size:44px}
+  .h2h-big{font-size:28px}
+  .pred-split,.factors-mini{grid-template-columns:1fr}
+  .pc-pct{font-size:42px}
+  .about-stats{grid-template-columns:repeat(2,1fr)}
+  .about-grid,.about-model-row{grid-template-columns:1fr}
+  .about-card{border-right:none}.about-card:nth-last-child(-n+2){border-bottom:1px solid var(--b)}
+  .about-card:last-child{border-bottom:none}
+  .sq-split,.fp-grid{grid-template-columns:1fr}.fp-half{border-right:none}
+  .h2h-band{grid-template-columns:1fr 1fr}
+  .wr-board{grid-template-columns:1fr 1fr}
+  .wml-hdr,.wml-row{grid-template-columns:1fr 70px 80px 80px}
+  .mn-key,.pm-key{min-width:80px}
+  .about-bio{grid-template-columns:1fr;gap:14px}
+  .about-avatar{width:56px;height:56px;font-size:22px}
+  .about-bio-name{font-size:22px}
+  .fp-row{grid-template-columns:14px 1fr 40px 30px 40px;gap:4px;padding:6px 10px}
+  .fp-hdr,.fp-sum{padding:7px 10px}
+  .l5d{width:18px;height:18px;font-size:6px}
+  .ae-flow-diagram{grid-template-columns:1fr;grid-template-rows:auto}
+  .ae-arrow-wrap{flex-direction:row;padding:4px 12px;min-width:unset;min-height:28px;border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+  .ae-arrow-line{flex:1;height:1px;width:unset}
+  .ae-roles{grid-template-columns:1fr}
+  .ae-role-card{border-right:none;border-bottom:1px solid var(--b)}
+  .ae-role-card:last-child{border-bottom:none}
+  .ae-thesis-headline{font-size:26px}
+  .ae-manifesto-txt{font-size:14px}
+  .collab-node{border-left:none;border-right:none;border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+  .mc-header{padding:10px 14px 10px 18px;gap:8px}
+  .mc-pred-row{grid-template-columns:1fr;grid-template-rows:auto}
+  .mc-divider{width:100%;height:1px;align-self:unset}
+  .mc-body{padding:0 14px 10px 18px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<canvas id="star-canvas"></canvas>
+
+<!-- ══ HEADER ══ -->
+<div class="hdr">
+  <div class="th rcb">
+    <div class="sysid">SYS·002 // RCB // IPL 2026 · MATCH 2</div>
+    <div class="tc">RCB</div>
+    <div class="tn">Royal Challengers Bengaluru</div>
+    <div class="hdr-stats">
+      <!-- H2H wins -->
+      <div class="hstat-h2h">
+        <div class="h2h-big">8</div>
+        <div class="h2h-meta">
+          <span class="h2h-label">H2H WINS VS CSK</span>
+          <span class="h2h-sub">At Chinnaswamy · <strong>64% win rate</strong></span>
+        </div>
+      </div>
+      <!-- Venue win % arc -->
+      <div class="venue-row">
+        <div class="venue-arc">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,220,150,0.08)" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15" fill="none" stroke="#FF6B47" stroke-width="3"
+              stroke-dasharray="60 94.2" stroke-linecap="round"/>
+          </svg>
+          <div class="venue-arc-lbl">64</div>
+        </div>
+        <div class="venue-meta">
+          <span class="venue-label">CHINNASWAMY WIN %</span>
+          <span class="venue-val">vs CSK all-time · 12 matches</span>
+        </div>
+      </div>
+      <!-- Last 5 -->
+      <div class="last5-row">
+        <span class="l5-label">LAST 5 vs CSK</span>
+        <div class="l5-dots">
+          <span class="l5d win" title="Won">W</span>
+          <span class="l5d win" title="Won">W</span>
+          <span class="l5d loss" title="Lost">L</span>
+          <span class="l5d win" title="Won">W</span>
+          <span class="l5d loss" title="Lost">L</span>
+        </div>
+      </div>
+    </div>
+    <div class="inj-row">
+      <span class="inj i-out">HAZLEWOOD OUT</span>
+      <span class="inj i-doubt">TIM DAVID DOUBT</span>
+      <span class="inj i-ok">KOHLI FIT</span>
+    </div>
+  </div>
+
+  <div class="ctr">
+    <div class="vs">VS</div>
+    <div class="vbo"><div class="vbr" id="vbr" style="height:66%"></div><div class="vbc" id="vbc" style="height:34%"></div></div>
+    <div class="cpct" id="cpct">RCB<br>65.7%</div>
+    <div class="mdt">5 APR 2026<br>CHINNASWAMY<br>19:30 IST</div>
+  </div>
+
+  <div class="th csk">
+    <div class="sysid">SYS·004 // CSK // 5× CHAMPIONS</div>
+    <div class="tc">CSK</div>
+    <div class="tn">Chennai Super Kings</div>
+    <div class="hdr-stats">
+      <!-- H2H wins -->
+      <div class="hstat-h2h">
+        <div class="h2h-big">4</div>
+        <div class="h2h-meta">
+          <span class="h2h-label">H2H WINS AT CHINN.</span>
+          <span class="h2h-sub">36% win rate · <strong>away ground</strong></span>
+        </div>
+      </div>
+      <!-- Venue win % arc -->
+      <div class="venue-row">
+        <div class="venue-arc">
+          <svg width="36" height="36" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,220,150,0.08)" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15" fill="none" stroke="#FFD080" stroke-width="3"
+              stroke-dasharray="34 94.2" stroke-linecap="round"/>
+          </svg>
+          <div class="venue-arc-lbl">36</div>
+        </div>
+        <div class="venue-meta">
+          <span class="venue-label">CHINNASWAMY WIN %</span>
+          <span class="venue-val">Away record · all-time</span>
+        </div>
+      </div>
+      <!-- Last 5 -->
+      <div class="last5-row">
+        <span class="l5-label">LAST 5 vs RCB</span>
+        <div class="l5-dots">
+          <span class="l5d loss" title="Lost">L</span>
+          <span class="l5d loss" title="Lost">L</span>
+          <span class="l5d win" title="Won">W</span>
+          <span class="l5d loss" title="Lost">L</span>
+          <span class="l5d win" title="Won">W</span>
+        </div>
+      </div>
+    </div>
+    <div class="inj-row">
+      <span class="inj i-out">DHONI OUT 2WKS</span>
+      <span class="inj i-out">ELLIS SEASON</span>
+      <span class="inj i-out">PATHIRANA APR</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROB BAR -->
+<div class="pbr">
+  <div class="pp r" id="pp-rcb">65.7%</div>
+  <div>
+    <div class="hb">
+      <div class="hbr" id="hbr" style="width:65.7%"></div>
+      <div class="hbc" id="hbc" style="width:34.3%"></div>
+    </div>
+  </div>
+  <div class="pp c" id="pp-csk">34.3%</div>
+</div>
+<div class="vr">
+  <div class="vt" id="verdict-txt">RCB FAVOURITES — FORM + HOME GROUND + INJURIES</div>
+  <span class="cf cm" id="conf-badge">MODERATE CONFIDENCE</span>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="sw('predict',this)">◈ PREDICT</button>
+  <button class="tab" onclick="sw('form',this)">▲ FORM ENGINE</button>
+  <button class="tab" onclick="sw('squads',this)">◉ SQUADS</button>
+  <button class="tab" onclick="sw('h2h',this)">⬡ HEAD TO HEAD</button>
+  <button class="tab" onclick="sw('warroom',this)">◆ WAR ROOM</button>
+  <button class="tab" onclick="sw('about',this)">◎ ABOUT</button>
+</div>
+
+<!-- ═══════════════════ PREDICT ═══════════════════ -->
+<div class="panel active" id="tab-predict">
+  <div class="model-switch">
+    <span class="ms-label">PREDICTION MODEL</span>
+    <div class="toggle-wrap">
+      <span class="toggle-opt active-l" id="lbl-l" onclick="setMode(false)">🤖 AMIT'S MODEL</span>
+      <div class="toggle-track" id="tog" onclick="toggleMode()"><div class="toggle-thumb"></div></div>
+      <span class="toggle-opt" id="lbl-r" onclick="setMode(true)">🧠 CLAUDE'S MODEL</span>
+    </div>
+  </div>
+  <div class="toss-row">
+    <span class="toss-lbl">TOSS INPUT</span>
+    <select id="toss-sel" onchange="compute()">
+      <option value="none">-- TOSS NOT YET DECIDED --</option>
+      <option value="rcb_field">RCB WIN TOSS → CHOOSE TO FIELD</option>
+      <option value="rcb_bat">RCB WIN TOSS → CHOOSE TO BAT</option>
+      <option value="csk_field">CSK WIN TOSS → CHOOSE TO FIELD</option>
+      <option value="csk_bat">CSK WIN TOSS → CHOOSE TO BAT</option>
+    </select>
+  </div>
+
+  <!-- AMIT -->
+  <div id="ml-mode">
+    <div class="sec"><span class="stx">AMIT'S MODEL V2 // XGBOOST + RF · ELO · LAST-MATCH FORM WEIGHTED</span><div class="sl"></div></div>
+    <div class="pred-main">
+      <div class="pred-split">
+        <div class="pred-card rcb-card">
+          <div class="pc-lbl">RCB WIN PROBABILITY</div>
+          <div class="pc-pct r" id="ml-rcb-pct">65.7%</div>
+          <div class="pc-sub" id="ml-rcb-sub">XGBoost: 62.1% · RF: 68.2%<br>Form-adjusted · Toss pending</div>
+        </div>
+        <div class="pred-card csk-card">
+          <div class="pc-lbl">CSK WIN PROBABILITY</div>
+          <div class="pc-pct c" id="ml-csk-pct">34.3%</div>
+          <div class="pc-sub" id="ml-csk-sub">ELO gap: −33 · Form adj: −11.4<br>Injury adj: −7.1 · Toss pending</div>
+        </div>
+      </div>
+
+      <div class="factors-mini">
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">ELO RATING</span></div><div class="fm-bar"><div class="fm-r" style="width:54%"></div><div class="fm-c" style="width:46%"></div></div><div class="fm-vals"><span class="fm-rv">RCB 1545</span><span class="fm-cv">CSK 1512</span></div></div>
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">PLAYER FORM AVG (TOP 4)</span></div><div class="fm-bar"><div class="fm-r" style="width:65%"></div><div class="fm-c" style="width:35%"></div></div><div class="fm-vals"><span class="fm-rv">9.2 RCB</span><span class="fm-cv">5.9 CSK</span></div></div>
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">M1 BATTING STRIKE RATE</span></div><div class="fm-bar"><div class="fm-r" style="width:67%"></div><div class="fm-c" style="width:33%"></div></div><div class="fm-vals"><span class="fm-rv">192 RCB</span><span class="fm-cv">95 CSK</span></div></div>
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">CHINNASWAMY WIN %</span></div><div class="fm-bar"><div class="fm-r" style="width:64%"></div><div class="fm-c" style="width:36%"></div></div><div class="fm-vals"><span class="fm-rv">64% RCB</span><span class="fm-cv">36% CSK</span></div></div>
+      </div>
+
+      <div class="inj-strip">
+        <div class="inj-title" id="amit-bk-title">HOW AMIT'S MODEL ARRIVES AT 65.7%</div>
+        <div class="inj-item"><span class="inj-name">BASE ENSEMBLE — ELO + VENUE + H2H (no form, no injuries)</span><span class="inj-delta neu">RCB 54.0%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ RCB BATTING FORM M1 — Kohli 9.7 · Padikkal 9.4 · Patidar 8.8</span><span class="inj-delta pos">+4.8%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ RCB BOWLING FORM M1 — Duffy 3/22 (POTM) · Shepherd 3/54</span><span class="inj-delta pos">+2.1%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ CSK BATTING COLLAPSE M1 — 40/4 PP · all out 127 (19.4 ov)</span><span class="inj-delta pos">+3.2%</span></div>
+        <div class="inj-item" style="background:rgba(231,76,60,0.03)"><span class="inj-name">↓ HAZLEWOOD OUT — Duffy covers ~85% quality, still a gap</span><span class="inj-delta neg">−0.9%</span></div>
+        <div class="inj-item" style="background:rgba(243,156,18,0.03)"><span class="inj-name">↓ TIM DAVID DOUBT — expected value at 40% chance of playing</span><span class="inj-delta neg">−0.6%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ DHONI OUT — CSK lose finisher + DRS brain + crowd factor</span><span class="inj-delta pos">+2.7%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ ELLIS OUT (SEASON) + PATHIRANA NOT YET — CSK death gap</span><span class="inj-delta pos">+1.9%</span></div>
+        <div class="inj-item"><span class="inj-name" id="amit-toss-lbl">TOSS IMPACT</span><span class="inj-delta neu" id="amit-toss-val">AWAITING TOSS</span></div>
+        <div class="inj-item" style="border-top:1px solid var(--b2);margin-top:4px;padding-top:8px">
+          <span class="inj-name" style="color:var(--t1);font-size:9px;font-weight:700">AMIT'S FINAL CALL</span>
+          <span class="inj-delta pos" style="font-size:20px" id="amit-final">RCB 65.7%</span>
+        </div>
+      </div>
+      <div class="model-note" style="margin-top:14px">
+        <div class="mn-row"><span class="mn-key">FORM EDGE</span><span class="mn-val">RCB's top 3 scored 161 combined in M1. CSK's top 3 scored 6. That is not a single-match blip — it is a real form signal. Weighted at 40% in this model, it adds +3.9% effective boost on top of the base.</span></div>
+        <div class="mn-row"><span class="mn-key">CSK THREAT</span><span class="mn-val">Noor Ahmad (8.7 form) is CSK's trump card. Mystery spin on a flat Chinnaswamy pitch vs Kohli's rare weakness against googlies is the one X-factor that can flip this.</span></div>
+        <div class="mn-row"><span class="mn-key">HONEST TAKE</span><span class="mn-val">RCB are genuine favourites. Title defence at home, injured CSK bowling, red-hot top order. True probability likely lives between 62–68%. Toss matters: RCB fielding first could push past 68%.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAUDE -->
+  <div id="wt-mode" style="display:none">
+    <div class="sec"><span class="stx">CLAUDE'S MODEL // GRADIENT BOOST + RF · H2H CORRECTED · FORM WEIGHTED</span><div class="sl"></div></div>
+    <div class="pred-main">
+      <div class="pred-split">
+        <div class="pred-card rcb-card">
+          <div class="pc-lbl">RCB WIN PROBABILITY</div>
+          <div class="pc-pct r" id="cl-rcb-pct">57.4%</div>
+          <div class="pc-sub" id="cl-rcb-sub">GB: 52.1% · RF: 61.8%<br>H2H-corrected · Toss pending</div>
+        </div>
+        <div class="pred-card csk-card">
+          <div class="pc-lbl">CSK WIN PROBABILITY</div>
+          <div class="pc-pct c" id="cl-csk-pct">42.6%</div>
+          <div class="pc-sub" id="cl-csk-sub">H2H historical: CSK 56% overall<br>DNA correction applied</div>
+        </div>
+      </div>
+
+      <div class="factors-mini">
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">ELO + VENUE BASE</span></div><div class="fm-bar"><div class="fm-r" style="width:52%"></div><div class="fm-c" style="width:48%"></div></div><div class="fm-vals"><span class="fm-rv">50.1%</span><span class="fm-cv">49.9%</span></div></div>
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">H2H CORRECTION (HISTORICAL)</span></div><div class="fm-bar"><div class="fm-r" style="width:49%"></div><div class="fm-c" style="width:51%"></div></div><div class="fm-vals"><span class="fm-rv">44%</span><span class="fm-cv">56%</span></div></div>
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">FORM DELTA (NET)</span></div><div class="fm-bar"><div class="fm-r" style="width:68%"></div><div class="fm-c" style="width:32%"></div></div><div class="fm-vals"><span class="fm-rv">+7.3% RCB</span><span class="fm-cv">CSK</span></div></div>
+        <div class="fm-card"><div class="fm-top"><span class="fm-name">INJURY NET IMPACT</span></div><div class="fm-bar"><div class="fm-r" style="width:61%"></div><div class="fm-c" style="width:39%"></div></div><div class="fm-vals"><span class="fm-rv">+4.7% RCB</span><span class="fm-cv">CSK</span></div></div>
+      </div>
+
+      <div class="inj-strip">
+        <div class="inj-title" id="cl-bk-title">HOW CLAUDE'S MODEL ARRIVES AT 57.4%</div>
+        <div class="inj-item"><span class="inj-name">BASE ML — ELO + VENUE + H2H BLENDED</span><span class="inj-delta neu">RCB 50.1%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ VENUE BONUS — Chinnaswamy home + 52% chase success rate</span><span class="inj-delta pos">+3.8%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ RCB BATTING FORM M1 — Kohli 9.7 · Padikkal 9.4 (updated)</span><span class="inj-delta pos">+3.4%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ CSK BATTING COLLAPSE — partial discount (Guwahati damp pitch)</span><span class="inj-delta pos">+2.1%</span></div>
+        <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ DHONI + ELLIS + PATHIRANA — combined absence</span><span class="inj-delta pos">+3.6%</span></div>
+        <div class="inj-item" style="background:rgba(231,76,60,0.03)"><span class="inj-name">↓ HAZLEWOOD OUT — partial quality drop acknowledged</span><span class="inj-delta neg">−0.7%</span></div>
+        <div class="inj-item" style="background:rgba(231,76,60,0.03)"><span class="inj-name">↓ TIM DAVID DOUBT — EV impact on lower-order firepower</span><span class="inj-delta neg">−0.4%</span></div>
+        <div class="inj-item" style="background:rgba(231,76,60,0.05)"><span class="inj-name">↓ H2H DNA CORRECTION — CSK 56% all-time, 65 matches of history</span><span class="inj-delta neg">−4.5%</span></div>
+        <div class="inj-item"><span class="inj-name" id="cl-toss-lbl">TOSS IMPACT</span><span class="inj-delta neu" id="cl-toss-val">AWAITING TOSS</span></div>
+        <div class="inj-item" style="border-top:1px solid var(--b2);margin-top:4px;padding-top:8px">
+          <span class="inj-name" style="color:var(--t1);font-size:9px;font-weight:700">CLAUDE'S FINAL CALL</span>
+          <span class="inj-delta pos" style="font-size:20px" id="cl-final">RCB 57.4%</span>
+        </div>
+      </div>
+      <div class="model-note" style="margin-top:14px">
+        <div class="mn-row"><span class="mn-key">WHY NARROWER?</span><span class="mn-val">CSK's 127 all-out was on a damp red-soil Guwahati wicket vs Archer + Burger at their best. Chinnaswamy is a very different surface — flat, true, high-scoring. I discount that collapse signal by ~30%.</span></div>
+        <div class="mn-row"><span class="mn-key">H2H MATTERS</span><span class="mn-val">65 matches, CSK 33–32. Exactly split. One bad game doesn't override 18 years of head-to-head DNA. When CSK face RCB, something usually happens. 42.6% is not a massive underdog call.</span></div>
+        <div class="mn-row"><span class="mn-key">GAP VS AMIT</span><span class="mn-val">Amit: 65.7% vs Claude: 57.4% → 8.3% gap (down from M1's 16.6%). Both agree RCB are favourites. We disagree on magnitude. The real number probably sits around 60–63%.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FORM ENGINE ═══════════════════ -->
+<div class="panel" id="tab-form">
+  <div class="sec"><span class="stx">FORM ENGINE // LAST MATCH PERFORMANCE → UPDATED FORM SCORE → WIN% IMPACT</span><div class="sl"></div></div>
+  <div class="form-intro">
+    Each player's M1 performance updates their running form score. Formula: <strong>New Form = (Base × 0.6) + (M1 Performance Score × 0.4)</strong>. Team batting/bowling aggregates feed directly into the win probability calculation.
+  </div>
+
+  <div class="sec" style="margin-top:0"><span class="stx">BATTING // M1 PERFORMANCES</span><div class="sl"></div></div>
+  <div class="fp-grid">
+    <div class="fp-half">
+      <div class="fp-hdr r"><span class="fp-team r">RCB</span><span style="font-family:var(--mono);font-size:7px;color:var(--t3)">vs SRH · 28 MAR · CHINNASWAMY</span><span class="fp-match">CHASED 202 IN 15.4</span></div>
+      <!-- Kohli -->
+      <div class="fp-row">
+        <div class="fp-num">1</div>
+        <div class="fp-info"><div class="fp-name">Virat Kohli</div><div class="fp-perf">69* (38) · SR 181 · unbeaten · 64th IPL fifty</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:97%"></div><div class="fp-bar g" style="width:97%"></div></div>
+        <div class="fp-score hot">9.7</div>
+        <div class="fp-delta up">+2.8%</div>
+      </div>
+      <!-- Padikkal -->
+      <div class="fp-row">
+        <div class="fp-num">3</div>
+        <div class="fp-info"><div class="fp-name">Devdutt Padikkal</div><div class="fp-perf">61 (26) · SR 234 · explosive opener</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:94%"></div><div class="fp-bar g" style="width:94%"></div></div>
+        <div class="fp-score hot">9.4</div>
+        <div class="fp-delta up">+2.1%</div>
+      </div>
+      <!-- Patidar -->
+      <div class="fp-row">
+        <div class="fp-num">4</div>
+        <div class="fp-info"><div class="fp-name">Rajat Patidar (c)</div><div class="fp-perf">31 (12) · SR 258 · captain's knock</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:88%"></div><div class="fp-bar g" style="width:88%"></div></div>
+        <div class="fp-score hot">8.8</div>
+        <div class="fp-delta up">+1.1%</div>
+      </div>
+      <!-- Tim David -->
+      <div class="fp-row">
+        <div class="fp-num">6</div>
+        <div class="fp-info"><div class="fp-name">Tim David <span class="inj-badge">DOUBT</span></div><div class="fp-perf">16* (10) · side strain in training</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:71%"></div><div class="fp-bar w" style="width:71%"></div></div>
+        <div class="fp-score mid">7.1</div>
+        <div class="fp-delta ne">0.0%</div>
+      </div>
+      <!-- Salt -->
+      <div class="fp-row">
+        <div class="fp-num">2</div>
+        <div class="fp-info"><div class="fp-name">Phil Salt</div><div class="fp-perf">3 (4) · early wicket · Unadkat</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:68%"></div><div class="fp-bar e" style="width:68%"></div></div>
+        <div class="fp-score mid">6.8</div>
+        <div class="fp-delta dn">−0.4%</div>
+      </div>
+      <!-- Jitesh -->
+      <div class="fp-row">
+        <div class="fp-num">5</div>
+        <div class="fp-info"><div class="fp-name">Jitesh Sharma (wk)</div><div class="fp-perf">0 (1) · duck · David Payne</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:59%"></div><div class="fp-bar e" style="width:59%"></div></div>
+        <div class="fp-score cold">5.9</div>
+        <div class="fp-delta dn">−0.5%</div>
+      </div>
+      <div class="fp-sum"><span class="fp-sum-lbl">RCB BAT FORM NET</span><span class="fp-sum-val" style="color:var(--ok)">+5.1% → RCB</span></div>
+    </div>
+
+    <div class="fp-half">
+      <div class="fp-hdr c"><span class="fp-team c">CSK</span><span style="font-family:var(--mono);font-size:7px;color:var(--t3)">vs RR · 30 MAR · GUWAHATI</span><span class="fp-match">ALL OUT 127 (19.4)</span></div>
+      <!-- Gaikwad -->
+      <div class="fp-row">
+        <div class="fp-num">1</div>
+        <div class="fp-info"><div class="fp-name">Ruturaj Gaikwad (c)</div><div class="fp-perf">6 (11) · b Jofra Archer · cleaned up</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:58%"></div><div class="fp-bar e" style="width:58%"></div></div>
+        <div class="fp-score cold">5.8</div>
+        <div class="fp-delta dn">−1.9%</div>
+      </div>
+      <!-- Samson -->
+      <div class="fp-row">
+        <div class="fp-num">3</div>
+        <div class="fp-info"><div class="fp-name">Sanju Samson (wk)</div><div class="fp-perf">0 (2) · b Nandre Burger · 2nd over</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:61%"></div><div class="fp-bar e" style="width:61%"></div></div>
+        <div class="fp-score cold">6.1</div>
+        <div class="fp-delta dn">−2.1%</div>
+      </div>
+      <!-- Mhatre -->
+      <div class="fp-row">
+        <div class="fp-num">2</div>
+        <div class="fp-info"><div class="fp-name">Ayush Mhatre</div><div class="fp-perf">0 (11) · c Jurel b Burger · PP</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:51%"></div><div class="fp-bar e" style="width:51%"></div></div>
+        <div class="fp-score cold">5.1</div>
+        <div class="fp-delta dn">−1.2%</div>
+      </div>
+      <!-- Dube -->
+      <div class="fp-row">
+        <div class="fp-num">4</div>
+        <div class="fp-info"><div class="fp-name">Shivam Dube</div><div class="fp-perf">6 (4) · b Ravindra Jadeja</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:62%"></div><div class="fp-bar e" style="width:62%"></div></div>
+        <div class="fp-score cold">6.2</div>
+        <div class="fp-delta dn">−0.8%</div>
+      </div>
+      <!-- Overton -->
+      <div class="fp-row">
+        <div class="fp-num">8</div>
+        <div class="fp-info"><div class="fp-name">Jamie Overton</div><div class="fp-perf">43 (36) · run out · only bright spot</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:74%"></div><div class="fp-bar g" style="width:74%"></div></div>
+        <div class="fp-score mid">7.4</div>
+        <div class="fp-delta up">+0.4%</div>
+      </div>
+      <!-- Sarfaraz -->
+      <div class="fp-row">
+        <div class="fp-num">IP</div>
+        <div class="fp-info"><div class="fp-name">Sarfaraz Khan (impact)</div><div class="fp-perf">17 (12) · LBW b Jadeja</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:69%"></div><div class="fp-bar w" style="width:69%"></div></div>
+        <div class="fp-score mid">6.9</div>
+        <div class="fp-delta ne">−0.2%</div>
+      </div>
+      <div class="fp-sum"><span class="fp-sum-lbl">CSK BAT FORM NET</span><span class="fp-sum-val" style="color:var(--err)">−5.8% CSK</span></div>
+    </div>
+  </div>
+
+  <div class="sec"><span class="stx">BOWLING // M1 PERFORMANCES</span><div class="sl"></div></div>
+  <div class="fp-grid">
+    <div class="fp-half">
+      <div class="fp-hdr r"><span class="fp-team r">RCB BOWLING</span><span class="fp-match">vs SRH 201/9</span></div>
+      <div class="fp-row">
+        <div class="fp-num">★</div>
+        <div class="fp-info"><div class="fp-name">Jacob Duffy <span style="color:var(--ok);font-size:9px">POTM</span></div><div class="fp-perf">3/22 (4 ov) · Econ 5.5 · debut · Head, Abhishek, Nitish</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:91%"></div><div class="fp-bar g" style="width:91%"></div></div>
+        <div class="fp-score hot">9.1</div>
+        <div class="fp-delta up">+1.8%</div>
+      </div>
+      <div class="fp-row">
+        <div class="fp-num">6</div>
+        <div class="fp-info"><div class="fp-name">Romario Shepherd</div><div class="fp-perf">3/54 (4 ov) · Econ 13.5 · wickets but expensive</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:71%"></div><div class="fp-bar w" style="width:71%"></div></div>
+        <div class="fp-score mid">7.1</div>
+        <div class="fp-delta ne">+0.2%</div>
+      </div>
+      <div class="fp-row">
+        <div class="fp-num">—</div>
+        <div class="fp-info"><div class="fp-name">Suyash Sharma</div><div class="fp-perf">1/28 (4 ov) · Econ 7.0 · steady wrist spin</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:72%"></div><div class="fp-bar w" style="width:72%"></div></div>
+        <div class="fp-score mid">7.2</div>
+        <div class="fp-delta up">+0.3%</div>
+      </div>
+      <div class="fp-row">
+        <div class="fp-num">—</div>
+        <div class="fp-info"><div class="fp-name">Nuwan Thushara</div><div class="fp-perf">0/38 (4 ov) · Econ 9.5 · hammered by SRH</div></div>
+        <div class="fp-bars"><div class="fp-bar r" style="width:58%"></div><div class="fp-bar e" style="width:58%"></div></div>
+        <div class="fp-score cold">5.8</div>
+        <div class="fp-delta dn">−0.3%</div>
+      </div>
+      <div class="fp-sum"><span class="fp-sum-lbl">RCB BOWL FORM NET</span><span class="fp-sum-val" style="color:var(--ok)">+2.0% → RCB</span></div>
+    </div>
+
+    <div class="fp-half">
+      <div class="fp-hdr c"><span class="fp-team c">CSK BOWLING</span><span class="fp-match">vs RR 128/2</span></div>
+      <div class="fp-row">
+        <div class="fp-num">★</div>
+        <div class="fp-info"><div class="fp-name">Noor Ahmad</div><div class="fp-perf">0/28 (4 ov) · Econ 7.0 · wicketless but KEY weapon</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:84%"></div><div class="fp-bar g" style="width:84%"></div></div>
+        <div class="fp-score hot">8.4</div>
+        <div class="fp-delta up">+0.6%</div>
+      </div>
+      <div class="fp-row">
+        <div class="fp-num">—</div>
+        <div class="fp-info"><div class="fp-name">Khaleel Ahmed</div><div class="fp-perf">0/24 (4 ov) · Econ 6.0 · tightest CSK bowler</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:75%"></div><div class="fp-bar w" style="width:75%"></div></div>
+        <div class="fp-score mid">7.5</div>
+        <div class="fp-delta up">+0.3%</div>
+      </div>
+      <div class="fp-row">
+        <div class="fp-num">—</div>
+        <div class="fp-info"><div class="fp-name">Matt Henry</div><div class="fp-perf">0/32 (4 ov) · Econ 8.0 · conceded freely</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:64%"></div><div class="fp-bar e" style="width:64%"></div></div>
+        <div class="fp-score mid">6.4</div>
+        <div class="fp-delta dn">−0.4%</div>
+      </div>
+      <div class="fp-row">
+        <div class="fp-num">—</div>
+        <div class="fp-info"><div class="fp-name">Anshul Kamboj</div><div class="fp-perf">2/28 (4 ov) · 2 wickets in losing chase</div></div>
+        <div class="fp-bars"><div class="fp-bar c" style="width:72%"></div><div class="fp-bar g" style="width:72%"></div></div>
+        <div class="fp-score mid">7.2</div>
+        <div class="fp-delta up">+0.4%</div>
+      </div>
+      <div class="fp-sum"><span class="fp-sum-lbl">CSK BOWL FORM NET</span><span class="fp-sum-val" style="color:var(--warn)">+0.9% CSK</span></div>
+    </div>
+  </div>
+
+  <!-- NET SUMMARY -->
+  <div class="sec"><span class="stx">NET FORM IMPACT // TOTAL PROBABILITY CONTRIBUTION</span><div class="sl"></div></div>
+  <div class="nf-wrap">
+    <div class="nf-title">LAST-MATCH FORM SIGNALS → WIN PROBABILITY ADJUSTMENT</div>
+    <div class="nf-row">
+      <div class="nf-lbl">↑ RCB BATTING FORM — Kohli, Padikkal, Patidar on fire</div>
+      <div class="nf-track"><div class="nf-fill" style="width:90%;background:var(--ok)"></div></div>
+      <div class="nf-val" style="color:var(--ok)">+5.1%</div>
+    </div>
+    <div class="nf-row">
+      <div class="nf-lbl">↑ RCB BOWLING FORM — Duffy debut brilliance</div>
+      <div class="nf-track"><div class="nf-fill" style="width:38%;background:var(--ok)"></div></div>
+      <div class="nf-val" style="color:var(--ok)">+2.0%</div>
+    </div>
+    <div class="nf-row">
+      <div class="nf-lbl">↑ CSK BATTING COLLAPSE PENALTY — 127 all out, 40/4 PP</div>
+      <div class="nf-track"><div class="nf-fill" style="width:62%;background:var(--ok)"></div></div>
+      <div class="nf-val" style="color:var(--ok)">+3.2%</div>
+    </div>
+    <div class="nf-row">
+      <div class="nf-lbl">↓ CSK BOWLING FORM — Noor + Khaleel ok, partial offset</div>
+      <div class="nf-track"><div class="nf-fill" style="width:12%;background:var(--err)"></div></div>
+      <div class="nf-val" style="color:var(--err)">−0.6%</div>
+    </div>
+    <div class="nf-row total">
+      <div class="nf-lbl">GROSS FORM SIGNAL → RCB (pre-weighting)</div>
+      <div class="nf-track"><div class="nf-fill" style="width:100%;background:linear-gradient(90deg,var(--rcb),var(--rcb2))"></div></div>
+      <div class="nf-val" style="color:var(--rcb2);font-size:16px">+9.7%</div>
+    </div>
+    <div style="font-family:var(--mono);font-size:7px;color:var(--t3);margin-top:10px;line-height:1.9;border-top:1px solid var(--b);padding-top:10px">
+      <strong style="color:var(--gold2)">Applied weight:</strong> 40% form · 60% base (ELO + venue + H2H) → Effective form boost to Amit's model: <strong style="color:var(--ok)">+3.9%</strong> on top of base 54.0%.<br>
+      Claude's model applies a lower 30% form weight + H2H correction, yielding a smaller effective boost.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SQUADS ═══════════════════ -->
+<div class="panel" id="tab-squads">
+  <div class="sq-split">
+    <div class="sqh-half rcb-sq">
+      <div class="sqhd"><span class="sqhc">RCB</span><span class="sqhl">BENGALURU · DEFENDING CHAMPIONS 2025</span></div>
+      <div class="sq-scroll">
+        <div class="sq-sec">BATTING</div>
+        <div class="pr"><div class="pi">VK</div><div class="pinfo"><div class="pn">Virat Kohli</div><div class="pm">69*(38) M1 · SR 181 · 4000 IPL chase runs</div></div><div class="spark"><div class="spb" style="height:14px"></div><div class="spb" style="height:14px"></div><div class="spb" style="height:13px"></div><div class="spb" style="height:14px"></div><div class="spb" style="height:14px"></div></div><div class="psc">9.7</div><div class="ptg tg-fire">🔥 ELITE</div></div>
+        <div class="pr"><div class="pi">DP</div><div class="pinfo"><div class="pn">Devdutt Padikkal</div><div class="pm">61(26) M1 · SR 234 · explosive start</div></div><div class="spark"><div class="spb" style="height:14px"></div><div class="spb" style="height:13px"></div><div class="spb" style="height:14px"></div><div class="spb" style="height:13px"></div><div class="spb" style="height:14px"></div></div><div class="psc">9.4</div><div class="ptg tg-fire">🔥 ELITE</div></div>
+        <div class="pr"><div class="pi">RP</div><div class="pinfo"><div class="pn">Rajat Patidar (c)</div><div class="pm">31(12) M1 · SR 258 · captain's power</div></div><div class="spark"><div class="spb" style="height:12px"></div><div class="spb" style="height:13px"></div><div class="spb" style="height:14px"></div><div class="spb" style="height:12px"></div><div class="spb" style="height:13px"></div></div><div class="psc">8.8</div><div class="ptg tg-hot">HOT</div></div>
+        <div class="pr"><div class="pi">PS</div><div class="pinfo"><div class="pn">Phil Salt (wk)</div><div class="pm">3(4) M1 · early out · one-handed screamer catch</div></div><div class="spark"><div class="spb" style="height:10px"></div><div class="spb" style="height:9px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:8px"></div><div class="spb" style="height:7px"></div></div><div class="psc">6.8</div><div class="ptg tg-ok">MID</div></div>
+        <div class="pr"><div class="pi">JS</div><div class="pinfo"><div class="pn">Jitesh Sharma</div><div class="pm">0(1) M1 · duck · David Payne</div></div><div class="spark"><div class="spb" style="height:8px"></div><div class="spb" style="height:7px"></div><div class="spb" style="height:6px"></div><div class="spb" style="height:5px"></div><div class="spb" style="height:4px"></div></div><div class="psc">5.9</div><div class="ptg tg-cold">COLD</div></div>
+        <div class="pr"><div class="pi">TD</div><div class="pinfo"><div class="pn">Tim David <span class="inj-badge">DOUBT</span></div><div class="pm">16*(10) M1 · side strain training</div></div><div class="spark"><div class="spb" style="height:10px"></div><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div><div class="spb" style="height:9px"></div></div><div class="psc">7.1</div><div class="ptg tg-ok">DOUBT</div></div>
+        <div class="pr"><div class="pi">RS</div><div class="pinfo"><div class="pn">Romario Shepherd</div><div class="pm">3/54 M1 · allround threat</div></div><div class="spark"><div class="spb" style="height:11px"></div><div class="spb" style="height:12px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div><div class="spb" style="height:12px"></div></div><div class="psc">8.3</div><div class="ptg tg-hot">HOT</div></div>
+        <div class="sq-sec">BOWLING</div>
+        <div class="pr"><div class="pi">JD</div><div class="pinfo"><div class="pn">Jacob Duffy <span style="color:var(--ok);font-size:9px">★ POTM</span></div><div class="pm">3/22(4) M1 · replacing Hazlewood · DEBUT</div></div><div class="spark"><div class="spb" style="height:14px"></div><div class="spb" style="height:14px"></div><div class="spb" style="height:14px"></div><div class="spb" style="height:13px"></div><div class="spb" style="height:14px"></div></div><div class="psc">9.1</div><div class="ptg tg-hot">HOT ↑</div></div>
+        <div class="pr"><div class="pi">JH</div><div class="pinfo"><div class="pn">Josh Hazlewood <span class="inj-badge">OUT M2</span></div><div class="pm">hamstring + achilles · earliest return Apr 10–11</div></div><div class="spark"><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div></div><div class="psc">9.2</div><div class="ptg tg-out">OUT M2</div></div>
+        <div class="pr"><div class="pi">SS</div><div class="pinfo"><div class="pn">Suyash Sharma</div><div class="pm">1/28(4) M1 · wrist spin asset</div></div><div class="spark"><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div></div><div class="psc">7.2</div><div class="ptg tg-ok">MID</div></div>
+        <div class="pr"><div class="pi">NT</div><div class="pinfo"><div class="pn">Nuwan Thushara</div><div class="pm">0/38(4) M1 · hammered · form concern</div></div><div class="spark"><div class="spb" style="height:7px"></div><div class="spb" style="height:6px"></div><div class="spb" style="height:5px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:3px"></div></div><div class="psc">5.8</div><div class="ptg tg-cold">COLD</div></div>
+      </div>
+    </div>
+    <div class="sqh-half csk-sq">
+      <div class="sqhd"><span class="sqhc">CSK</span><span class="sqhl">CHENNAI · 5× IPL CHAMPIONS</span></div>
+      <div class="sq-scroll">
+        <div class="sq-sec">BATTING</div>
+        <div class="pr"><div class="pi">RG</div><div class="pinfo"><div class="pn">Ruturaj Gaikwad (c)</div><div class="pm">6(11) M1 · b Archer · 5th consec loss without MSD</div></div><div class="spark"><div class="spb" style="height:6px"></div><div class="spb" style="height:5px"></div><div class="spb" style="height:7px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div></div><div class="psc">5.8</div><div class="ptg tg-cold">COLD ↓</div></div>
+        <div class="pr"><div class="pi">SS</div><div class="pinfo"><div class="pn">Sanju Samson (wk)</div><div class="pm">0(2) M1 · b Burger · 2nd over duck</div></div><div class="spark"><div class="spb" style="height:5px"></div><div class="spb" style="height:6px"></div><div class="spb" style="height:5px"></div><div class="spb" style="height:3px"></div><div class="spb" style="height:3px"></div></div><div class="psc">6.1</div><div class="ptg tg-cold">DUCK ↓</div></div>
+        <div class="pr"><div class="pi">AM</div><div class="pinfo"><div class="pn">Ayush Mhatre</div><div class="pm">0(11) M1 · c Jurel b Burger · PP collapse</div></div><div class="spark"><div class="spb" style="height:4px"></div><div class="spb" style="height:5px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:3px"></div><div class="spb" style="height:3px"></div></div><div class="psc">5.1</div><div class="ptg tg-cold">COLD ↓</div></div>
+        <div class="pr"><div class="pi">SD</div><div class="pinfo"><div class="pn">Shivam Dube</div><div class="pm">6(4) M1 · b Jadeja · too aggressive</div></div><div class="spark"><div class="spb" style="height:8px"></div><div class="spb" style="height:7px"></div><div class="spb" style="height:9px"></div><div class="spb" style="height:6px"></div><div class="spb" style="height:6px"></div></div><div class="psc">6.2</div><div class="ptg tg-cold">COLD</div></div>
+        <div class="pr"><div class="pi">JO</div><div class="pinfo"><div class="pn">Jamie Overton</div><div class="pm">43(36) M1 · run out · only CSK fight</div></div><div class="spark"><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:12px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div></div><div class="psc">7.4</div><div class="ptg tg-ok">FIGHTER</div></div>
+        <div class="pr"><div class="pi">SK</div><div class="pinfo"><div class="pn">Sarfaraz Khan (impact)</div><div class="pm">17(12) M1 · LBW Jadeja · brief fight</div></div><div class="spark"><div class="spb" style="height:9px"></div><div class="spb" style="height:8px"></div><div class="spb" style="height:9px"></div><div class="spb" style="height:8px"></div><div class="spb" style="height:9px"></div></div><div class="psc">6.9</div><div class="ptg tg-ok">MID</div></div>
+        <div class="pr"><div class="pi">MSD</div><div class="pinfo"><div class="pn">MS Dhoni <span class="inj-badge">OUT 2 WKS</span></div><div class="pm">calf strain · finisher + DRS brain gone</div></div><div class="spark"><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div></div><div class="psc">9.1</div><div class="ptg tg-out">OUT</div></div>
+        <div class="sq-sec">BOWLING</div>
+        <div class="pr"><div class="pi">NA</div><div class="pinfo"><div class="pn">Noor Ahmad</div><div class="pm">0/28(4) M1 · KEY WEAPON · mystery spin</div></div><div class="spark"><div class="spb" style="height:12px"></div><div class="spb" style="height:13px"></div><div class="spb" style="height:12px"></div><div class="spb" style="height:13px"></div><div class="spb" style="height:12px"></div></div><div class="psc">8.4</div><div class="ptg tg-hot">KEY</div></div>
+        <div class="pr"><div class="pi">KA</div><div class="pinfo"><div class="pn">Khaleel Ahmed</div><div class="pm">0/24(4) M1 · tightest CSK bowler</div></div><div class="spark"><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div></div><div class="psc">7.5</div><div class="ptg tg-ok">SOLID</div></div>
+        <div class="pr"><div class="pi">MH</div><div class="pinfo"><div class="pn">Matt Henry</div><div class="pm">0/32(4) M1 · expensive · death specialist</div></div><div class="spark"><div class="spb" style="height:9px"></div><div class="spb" style="height:8px"></div><div class="spb" style="height:8px"></div><div class="spb" style="height:7px"></div><div class="spb" style="height:8px"></div></div><div class="psc">6.4</div><div class="ptg tg-ok">MID</div></div>
+        <div class="pr"><div class="pi">AK</div><div class="pinfo"><div class="pn">Anshul Kamboj</div><div class="pm">2/28(4) M1 · 2 wkts vs RR chase</div></div><div class="spark"><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div><div class="spb" style="height:11px"></div><div class="spb" style="height:10px"></div></div><div class="psc">7.2</div><div class="ptg tg-ok">SOLID</div></div>
+        <div class="pr"><div class="pi">NE</div><div class="pinfo"><div class="pn">Nathan Ellis <span class="inj-badge">SEASON OUT</span></div><div class="pm">hamstring · death bowling specialist gone</div></div><div class="spark"><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div></div><div class="psc">8.4</div><div class="ptg tg-out">OUT</div></div>
+        <div class="pr"><div class="pi">MP</div><div class="pinfo"><div class="pn">Matheesha Pathirana <span class="inj-badge">MID-APR</span></div><div class="pm">calf strain · death king unavailable</div></div><div class="spark"><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div><div class="spb" style="height:4px"></div></div><div class="psc">9.0</div><div class="ptg tg-out">OUT</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sq-note">FORM SCORE 1–10: ≥8.5 ELITE · 7–8.4 HOT · 5.5–6.9 MID · &lt;5.5 COLD · Updated after every match · Formula: 60% base (IPL 2025 + T20 WC) + 40% M1 performance</div>
+</div>
+
+<!-- ═══════════════════ H2H ═══════════════════ -->
+<div class="panel" id="tab-h2h">
+  <div class="h2h-band">
+    <div class="hstat"><div class="hl">RCB WINS (ALL TIME)</div><div class="hv r">32</div><div class="hs">49.2% win rate</div></div>
+    <div class="hstat"><div class="hl">CSK WINS (ALL TIME)</div><div class="hv c">33</div><div class="hs">50.8% win rate</div></div>
+    <div class="hstat"><div class="hl">LAST 10 MATCHES</div><div class="hv g">5 — 5</div><div class="hs">perfectly even</div></div>
+    <div class="hstat"><div class="hl">ELO EDGE</div><div class="hv r">+33</div><div class="hs">RCB post M1</div></div>
+  </div>
+  <div class="h2h-band">
+    <div class="hstat"><div class="hl">CHINNASWAMY RCB WIN%</div><div class="hv r">64%</div><div class="hs">vs CSK at home</div></div>
+    <div class="hstat"><div class="hl">AVG MATCH SCORE</div><div class="hv g">178</div><div class="hs">bat first</div></div>
+    <div class="hstat"><div class="hl">CHASE WIN RATE</div><div class="hv r">52%</div><div class="hs">Chinnaswamy</div></div>
+    <div class="hstat"><div class="hl">TOTAL MATCHES</div><div class="hv g">65</div><div class="hs">since 2008</div></div>
+  </div>
+
+  <div class="sec"><span class="stx">M1 SCORECARD // RCB vs SRH · 28 MAR 2026 · CHINNASWAMY</span><div class="sl"></div></div>
+  <div class="sc-wrap">
+    <div class="sc-hdr"><div class="sc-title" style="color:var(--rcb2)">RCB vs SRH — MATCH 1</div><div class="sc-badge sb-w">RCB WON BY 6 WICKETS · 26 BALLS LEFT</div></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--t3)">SRH INNINGS</span><span class="sc-val">201 / 9 (20 overs)</span></div>
+    <div class="sc-row"><span class="sc-lbl">Ishan Kishan (c)</span><span class="sc-val" style="color:var(--ok)">80 (38) ★ · SR 210</span></div>
+    <div class="sc-row"><span class="sc-lbl">Aniket Verma</span><span class="sc-val" style="color:var(--ok)">43 (17) · SR 252</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--t3)">RCB CHASE</span><span class="sc-val" style="color:var(--rcb2)">203 / 4 (15.4 overs)</span></div>
+    <div class="sc-row"><div class="sc-lbl" style="color:var(--rcb2)">Virat Kohli*</div><span class="sc-val" style="color:var(--rcb2)">69* (38) · SR 181 · unbeaten</span></div>
+    <div class="sc-row"><div class="sc-lbl" style="color:var(--rcb2)">Devdutt Padikkal</div><span class="sc-val" style="color:var(--rcb2)">61 (26) · SR 234</span></div>
+    <div class="sc-row"><div class="sc-lbl" style="color:var(--rcb2)">Rajat Patidar</div><span class="sc-val" style="color:var(--rcb2)">31 (12) · SR 258</span></div>
+    <div class="sc-row"><div class="sc-lbl" style="color:var(--rcb2)">Jacob Duffy (POTM)</div><span class="sc-val" style="color:var(--rcb2)">3 / 22 (4 ov) · Econ 5.5</span></div>
+  </div>
+
+  <div class="sec"><span class="stx">M1 SCORECARD // CSK vs RR · 30 MAR 2026 · GUWAHATI (DAMP RED-SOIL PITCH)</span><div class="sl"></div></div>
+  <div class="sc-wrap">
+    <div class="sc-hdr"><div class="sc-title" style="color:var(--csk2)">CSK vs RR — MATCH 3</div><div class="sc-badge sb-l">CSK LOST BY 8 WICKETS · 47 BALLS LEFT</div></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--t3)">CSK INNINGS</span><span class="sc-val" style="color:var(--err)">127 ALL OUT (19.4 overs)</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--err)">Powerplay score</span><span class="sc-val" style="color:var(--err)">40 / 4 — DISASTER</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--err)">Ruturaj Gaikwad (c)</span><span class="sc-val" style="color:var(--err)">6 (11) · b Archer</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--err)">Sanju Samson (wk)</span><span class="sc-val" style="color:var(--err)">0 (2) · b Burger</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--err)">Ayush Mhatre</span><span class="sc-val" style="color:var(--err)">0 (11) · c Jurel b Burger</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--ok)">Jamie Overton</span><span class="sc-val" style="color:var(--ok)">43 (36) · top scorer · run out</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--t3)">RR chase</span><span class="sc-val" style="color:var(--ok)">128 / 2 (12.1 overs) · FASTEST CHASE IN RR HISTORY</span></div>
+    <div class="sc-row"><span class="sc-lbl" style="color:var(--t3)">Context</span><span class="sc-val" style="font-size:11px;color:var(--t3)">5th consecutive IPL loss for CSK without Dhoni</span></div>
+  </div>
+
+  <div class="sec"><span class="stx">KEY PLAYER MATCHUPS // M2 PREVIEW</span><div class="sl"></div></div>
+  <div class="matchup-row"><span class="mu-l" style="color:var(--rcb2)">Duffy (back-of-length seam)</span><span class="mu-mid">vs</span><span class="mu-r" style="color:var(--csk2)">Gaikwad (b Archer similar line) → ADVANTAGE RCB</span></div>
+  <div class="matchup-row"><span class="mu-l" style="color:var(--csk2)">Noor Ahmad (mystery spin)</span><span class="mu-mid">vs</span><span class="mu-r" style="color:var(--rcb2)">Kohli (rare weakness vs googlies) → WATCH CLOSELY</span></div>
+  <div class="matchup-row"><span class="mu-l" style="color:var(--rcb2)">Shepherd (raw pace)</span><span class="mu-mid">vs</span><span class="mu-r" style="color:var(--csk2)">Samson (poor form, duck M1) → ADVANTAGE RCB</span></div>
+  <div class="matchup-row"><span class="mu-l" style="color:var(--csk2)">Khaleel Ahmed (left-arm)</span><span class="mu-mid">vs</span><span class="mu-r" style="color:var(--rcb2)">Padikkal (handles left-arm well) → NEUTRAL</span></div>
+  <div class="matchup-row"><span class="mu-l" style="color:var(--rcb2)">Suyash Sharma (wrist spin)</span><span class="mu-mid">vs</span><span class="mu-r" style="color:var(--csk2)">Dube (struggles vs turning ball) → ADVANTAGE RCB</span></div>
+</div>
+
+<!-- ═══════════════════ WAR ROOM ═══════════════════ -->
+<div class="panel" id="tab-warroom">
+
+  <div class="wr-hero">
+    <div class="wr-title">WAR ROOM</div>
+    <div class="wr-sub">AMIT'S MODEL vs CLAUDE'S MODEL · IPL 2026 SEASON TRACKER</div>
+  </div>
+
+  <div class="wr-board">
+    <div class="wr-side amit-side">
+      <div class="wr-name">◈ AMIT'S MODEL</div>
+      <div class="wr-score tied">0</div>
+      <div class="wr-lbl">CORRECT PREDICTIONS</div>
+    </div>
+    <div class="wr-side claude-side">
+      <div class="wr-name">◎ CLAUDE'S MODEL</div>
+      <div class="wr-score tied">0</div>
+      <div class="wr-lbl">CORRECT PREDICTIONS</div>
+    </div>
+  </div>
+
+  <div class="wr-guide">
+    <span class="wr-guide-icon">◆</span>
+    <span class="wr-guide-txt">Each match gets its own prediction page hosted on GitHub Pages. Click <strong>VIEW PREDICTION</strong> to open the full War Room for that match — form engine, squads, H2H, live model breakdown. This page updates every match.</span>
+  </div>
+
+  <div class="sec"><span class="stx">SEASON MATCH LOG // IPL 2026 · RCB FIXTURES</span><div class="sl"></div></div>
+
+  <!-- M1 COMPLETED -->
+  <div class="mc mc-done">
+    <div class="mc-header">
+      <div class="mc-num">M1</div>
+      <div class="mc-teams"><span class="mc-team-r">RCB</span><span class="mc-vs">vs</span><span class="mc-team-o">SRH</span></div>
+      <div class="mc-meta">
+        <span class="mc-date">28 MAR · CHINNASWAMY</span>
+        <span class="mc-result win">RCB WON · 6 WKTS · 26 BALLS</span>
+      </div>
+      <a href="https://amit0257.github.io/Ipl_RCb_SRH_2026_M1/" target="_blank" rel="noopener" class="mc-btn mc-btn-done">VIEW PREDICTION ↗</a>
+    </div>
+    <div class="mc-body">
+      <div class="mc-pred-row">
+        <div class="mc-pred-block">
+          <div class="mc-pred-lbl">◈ AMIT PREDICTED</div>
+          <div class="mc-pred-val" style="color:var(--err)">SRH 59.1%</div>
+          <span class="badge badge-fail">WRONG ✗</span>
+        </div>
+        <div class="mc-divider"></div>
+        <div class="mc-pred-block">
+          <div class="mc-pred-lbl">◎ CLAUDE PREDICTED</div>
+          <div class="mc-pred-val" style="color:var(--err)">SRH 75.7%</div>
+          <span class="badge badge-fail">WRONG ✗</span>
+        </div>
+        <div class="mc-divider"></div>
+        <div class="mc-pred-block">
+          <div class="mc-pred-lbl">MODEL GAP</div>
+          <div class="mc-pred-val" style="color:var(--warn)">16.6%</div>
+          <span class="mc-pred-note">Amit closer to truth</span>
+        </div>
+      </div>
+      <div class="mc-pm">
+        <span class="mc-pm-key">WHY WRONG</span>
+        <span class="mc-pm-val">Both overweighted SRH H2H. Underestimated Duffy debut (3/22 POTM) + Kohli form peak. Fix applied in M2: last-match form now 40% weight.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- M2 CURRENT -->
+  <div class="mc mc-current">
+    <div class="mc-header">
+      <div class="mc-num">M2</div>
+      <div class="mc-teams"><span class="mc-team-r">RCB</span><span class="mc-vs">vs</span><span class="mc-team-o" style="color:var(--csk2)">CSK</span></div>
+      <div class="mc-meta">
+        <span class="mc-date">5 APR · CHINNASWAMY</span>
+        <span class="mc-result pending">MATCH PENDING · 19:30 IST</span>
+      </div>
+      <div class="mc-btn mc-btn-current">YOU ARE HERE ◈</div>
+    </div>
+    <div class="mc-body">
+      <div class="mc-pred-row">
+        <div class="mc-pred-block">
+          <div class="mc-pred-lbl">◈ AMIT PREDICTED</div>
+          <div class="mc-pred-val" style="color:var(--rcb2)">RCB 65.7%</div>
+          <span class="badge badge-warn">PENDING →</span>
+        </div>
+        <div class="mc-divider"></div>
+        <div class="mc-pred-block">
+          <div class="mc-pred-lbl">◎ CLAUDE PREDICTED</div>
+          <div class="mc-pred-val" style="color:var(--rcb2)">RCB 57.4%</div>
+          <span class="badge badge-pend">PENDING →</span>
+        </div>
+        <div class="mc-divider"></div>
+        <div class="mc-pred-block">
+          <div class="mc-pred-lbl">MODEL GAP</div>
+          <div class="mc-pred-val" style="color:var(--gold2)">8.3%</div>
+          <span class="mc-pred-note">Both call RCB ✓</span>
+        </div>
+      </div>
+      <div class="mc-pm">
+        <span class="mc-pm-key">KEY INSIGHT</span>
+        <span class="mc-pm-val">First match both models agree on direction. Gap shrunk 16.6% → 8.3% after applying real M1 form data. Disagreement is now magnitude, not direction.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- M3 UPCOMING -->
+  <div class="mc mc-upcoming">
+    <div class="mc-header">
+      <div class="mc-num">M3</div>
+      <div class="mc-teams"><span class="mc-team-r">RCB</span><span class="mc-vs">vs</span><span class="mc-team-o" style="color:var(--t3)">TBD</span></div>
+      <div class="mc-meta">
+        <span class="mc-date">UPCOMING · SCHEDULE TBD</span>
+        <span class="mc-result" style="color:var(--t3)">AWAITING</span>
+      </div>
+      <div class="mc-btn mc-btn-upcoming">COMING SOON</div>
+    </div>
+    <div class="mc-upcoming-note">
+      After M2 result: update M2 above → add M3 GitHub Pages link here. Pattern repeats every match — result · predictions · post-mortem · link.
+    </div>
+  </div>
+
+  <div class="sec"><span class="stx">M1 POST-MORTEM // DEEP ANALYSIS</span><div class="sl"></div></div>
+  <div class="wr-pm">
+    <div class="pm-title">RCB vs SRH · 28 MAR · BOTH MODELS WRONG</div>
+    <div class="pm-row"><span class="pm-key">ACTUAL RESULT</span><span class="pm-val" style="color:var(--rcb2)">RCB won by 6 wickets with 26 balls remaining. Kohli 69*, Padikkal 61, Duffy 3/22. Title defence with a statement.</span></div>
+    <div class="pm-row"><span class="pm-key">AMIT PREDICTED</span><span class="pm-val">SRH 59.1% — wrong direction. Both models called SRH, RCB won convincingly.</span></div>
+    <div class="pm-row"><span class="pm-key">CLAUDE PREDICTED</span><span class="pm-val">SRH 75.7% — more confident, more wrong. Larger calibration error than Amit.</span></div>
+    <div class="pm-row"><span class="pm-key">WHO WAS CLOSER</span><span class="pm-val">◈ Amit — 59.1% is closer to 50/50 than 75.7%. Amit edges Round 1 on calibration.</span></div>
+    <div class="pm-row"><span class="pm-key">ROOT CAUSE</span><span class="pm-val">Overweighted historical SRH H2H. Did not anticipate: Duffy debut quality (unknowable), Kohli's current form spike, RCB home momentum defending first title.</span></div>
+    <div class="pm-row"><span class="pm-key">FIX FOR M2</span><span class="pm-val">Last-match form now 40% weight. Player M1 scores directly update the probability engine. Form Engine tab shows the full math.</span></div>
+  </div>
+
+  <div class="wr-narrative">
+    <div class="wr-narrative-lbl">WAR ROOM SEASON NARRATIVE</div>
+    <div class="wr-narrative-txt">Both wrong in M1. Both calling RCB in M2 — first agreement all season. The gap is closing: 16.6% → 8.3%. Each match the models learn. Each match the story gets richer. That's why we build this in public.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<div class="panel" id="tab-about">
+  <div class="about-panel">
+
+    <div class="about-bio">
+      <div class="about-avatar">AP</div>
+      <div>
+        <div class="about-bio-name">AMIT PANDIT</div>
+        <div class="about-bio-role">DATA SCIENTIST · LULU RETAIL · BENGALURU</div>
+        <div class="about-bio-txt">
+          5+ years in retail analytics — building pricing models, demand forecasting and customer segmentation systems that run at scale across one of the largest retail chains in the Middle East and India.<br><br>
+          I've conducted <strong>60+ DS and DA interviews</strong> — first at HomeLane, now on Lulu's active hiring panel. That interviewer lens is what makes my mentoring different: I know exactly what gets candidates filtered out, and why.<br><br>
+          This IPL experiment is a live demonstration of how I think about ML: honest priors, transparent methodology, and the willingness to be publicly wrong.
+        </div>
+      </div>
+    </div>
+
+    <!-- THE THESIS -->
+    <div class="ae-thesis">
+      <div class="ae-thesis-eyebrow">◈ THE BIGGER PICTURE</div>
+      <div class="ae-thesis-headline">This is what the future of work looks like.</div>
+      <div class="ae-thesis-sub">Not AI replacing data scientists. Not data scientists ignoring AI.<br>A new operating model — where human expertise and AI capability compound each other.</div>
+    </div>
+
+    <!-- COLLABORATION FLOW DIAGRAM -->
+    <div class="ae-flow">
+      <div class="ae-flow-title">HOW AMIT + CLAUDE BUILD THIS TOGETHER</div>
+      <div class="ae-flow-diagram">
+
+        <!-- Node: Human -->
+        <div class="ae-node human-node">
+          <div class="ae-node-icon">◉</div>
+          <div class="ae-node-name">AMIT</div>
+          <div class="ae-node-role">Data Scientist</div>
+          <ul class="ae-node-list">
+            <li>Domain knowledge</li>
+            <li>Feature intuition</li>
+            <li>Model architecture</li>
+            <li>Result judgement</li>
+            <li>Narrative framing</li>
+          </ul>
+        </div>
+
+        <!-- Arrow right -->
+        <div class="ae-arrow-wrap">
+          <div class="ae-arrow-line"></div>
+          <div class="ae-arrow-label">trains / challenges</div>
+          <div class="ae-arrow-line"></div>
+          <div class="ae-arrow-label ae-arrow-label-2">audits / updates</div>
+        </div>
+
+        <!-- Node: Collaboration -->
+        <div class="ae-node collab-node">
+          <div class="ae-node-icon" style="color:var(--gold2)">◆</div>
+          <div class="ae-node-name" style="color:var(--gold2)">IPL WAR ROOM</div>
+          <div class="ae-node-role">The Live Arena</div>
+          <ul class="ae-node-list">
+            <li>Real match data</li>
+            <li>Live predictions</li>
+            <li>Public post-mortems</li>
+            <li>Model disagreements</li>
+            <li>Season-long learning</li>
+          </ul>
+        </div>
+
+        <!-- Arrow right -->
+        <div class="ae-arrow-wrap">
+          <div class="ae-arrow-line"></div>
+          <div class="ae-arrow-label">accelerates</div>
+          <div class="ae-arrow-line"></div>
+          <div class="ae-arrow-label ae-arrow-label-2">grounds / corrects</div>
+        </div>
+
+        <!-- Node: AI -->
+        <div class="ae-node ai-node">
+          <div class="ae-node-icon" style="color:var(--ok)">◎</div>
+          <div class="ae-node-name" style="color:var(--ok)">CLAUDE</div>
+          <div class="ae-node-role">AI Partner</div>
+          <ul class="ae-node-list">
+            <li>Parallel model build</li>
+            <li>Speed at scale</li>
+            <li>Pattern recognition</li>
+            <li>Challenge assumptions</li>
+            <li>Synthesise context</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- What each brings -->
+      <div class="ae-roles">
+        <div class="ae-role-card human-role">
+          <div class="ae-role-who">WHAT THE DATA SCIENTIST BRINGS</div>
+          <div class="ae-role-body">The intuition that Duffy's debut would matter. The judgement that a 127 all-out on a damp Guwahati pitch shouldn't be weighted the same as a Chinnaswamy collapse. The domain context that no training set captures. The ability to say: <em>"the model is technically right but contextually wrong."</em></div>
+        </div>
+        <div class="ae-role-card ai-role">
+          <div class="ae-role-who">WHAT THE AI BRINGS</div>
+          <div class="ae-role-body">A second model trained on 1,169 matches in minutes — not weeks. A parallel prediction that stress-tests assumptions. Instant synthesis of injury news, form data, and historical patterns. The willingness to disagree: Claude called SRH 75.7% in M1. Amit called 59.1%. Both wrong. But the disagreement itself was signal.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE THESIS STATEMENT -->
+    <div class="ae-manifesto">
+      <div class="ae-manifesto-lbl">THE POINT OF ALL THIS</div>
+      <div class="ae-manifesto-txt">The data professionals who thrive in the next decade won't be the ones who know the most algorithms. They'll be the ones who know <em>when to trust the model, when to override it, and how to use AI as a thinking partner rather than a shortcut.</em> This IPL experiment is a live proof of that thesis — one match at a time.</div>
+      <div class="ae-manifesto-pills">
+        <span class="ae-pill">HUMAN INTUITION + AI SCALE</span>
+        <span class="ae-pill">DISAGREEMENT AS SIGNAL</span>
+        <span class="ae-pill">BUILDING IN PUBLIC</span>
+        <span class="ae-pill">PYTHON · XGBOOST · SCIKIT-LEARN</span>
+        <span class="ae-pill">278K DELIVERIES · 1,169 MATCHES</span>
+      </div>
+    </div>
+
+    <div class="about-hero">
+      <div class="about-title">IPL 2026 WAR ROOM</div>
+      <div class="about-sub">MATCH PREDICTION ENGINE · RCB vs CSK · 5 APRIL 2026 · MATCH 2</div>
+      <div class="about-badge">◈ AMIT PANDIT · DATA SCIENTIST · LULU RETAIL · BENGALURU</div>
+    </div>
+    <div class="about-stats">
+      <div class="about-stat"><div class="about-stat-num">278K</div><div class="about-stat-lbl">Deliveries Analysed</div></div>
+      <div class="about-stat"><div class="about-stat-num">1,169</div><div class="about-stat-lbl">IPL Matches</div></div>
+      <div class="about-stat"><div class="about-stat-num">52.7%</div><div class="about-stat-lbl">Amit Accuracy</div></div>
+      <div class="about-stat"><div class="about-stat-num">8.3%</div><div class="about-stat-lbl">M2 Model Gap</div></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-icon">◈</div>
+        <div class="about-card-title">DATA SOURCES</div>
+        <div class="about-card-body">
+          <strong>Kaggle IPL Dataset</strong> — 1,090 matches (2008–2024), deliveries + results<br>
+          <strong>Cricsheet IPL JSON</strong> — 1,169 matches incl. IPL 2025, 278K ball-by-ball<br>
+          <strong>Cricsheet T20 JSON</strong> — 3,220 international T20s up to Mar 2026<br>
+          <strong>M1 Scorecards</strong> — RCB vs SRH Mar 28 · CSK vs RR Mar 30<br>
+          <strong>Injury reports</strong> — ESPNcricinfo + franchise announcements
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">▲</div>
+        <div class="about-card-title">FORM ENGINE (NEW M2)</div>
+        <div class="about-card-body">
+          <strong>Formula:</strong> New Form = Base × 0.6 + M1 Score × 0.4<br>
+          Each player scored 1–10 per match based on impact<br>
+          <strong>RCB top 4 avg after M1:</strong> 9.2<br>
+          <strong>CSK top 4 avg after M1:</strong> 5.9<br>
+          <strong>Net form boost → RCB:</strong> +9.7% (effective: +3.9%)
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">◉</div>
+        <div class="about-card-title">FEATURE ENGINEERING</div>
+        <div class="about-card-body">
+          <strong>Elo ratings</strong> K=32 from 2022, base 1500<br>
+          Team form last 8 matches, venue win rate, H2H last 10<br>
+          Batting/bowling form scores + last-match update (new M2)<br>
+          Toss decision adjustment (±3% at Chinnaswamy)<br>
+          Squad strength + injury adjustments<br>
+          <strong>Total features (Amit V2):</strong> 20
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">◆</div>
+        <div class="about-card-title">MENTORING</div>
+        <div class="about-card-body">
+          <strong>60+ DS/DA interviews conducted</strong> at HomeLane + Lulu<br>
+          Career clarity sessions on Topmate for DS aspirants<br>
+          The question I answer: "Why am I not getting shortlisted?"<br>
+          <strong>My edge:</strong> I've been on the other side of your interview<br>
+          <strong>Find me:</strong> LinkedIn · Amit Pandit · Bengaluru
+        </div>
+      </div>
+    </div>
+    <div class="about-models">
+      <div class="sec" style="padding:0;border:none;background:none;margin-bottom:0"><span class="stx">THE TWO MODELS</span><div class="sl"></div></div>
+      <div class="about-model-row">
+        <div class="about-model-card amit">
+          <div class="about-model-name">◈ AMIT'S MODEL V2</div>
+          <div class="about-model-spec">
+            <strong>Algorithm:</strong> XGBoost + Random Forest Ensemble<br>
+            <strong>Training:</strong> Kaggle IPL 2008–2024 (1,090 matches)<br>
+            <strong>Features:</strong> 20 — Elo, form (M2 updated), venue, H2H, toss<br>
+            <strong>Form weight:</strong> 60% base + 40% last match<br>
+            <strong>CV Accuracy:</strong> 52.7% ± 1.8% (5-fold)<br>
+            <strong>M2 Prediction:</strong> RCB 65.7% · CSK 34.3%
+          </div>
+        </div>
+        <div class="about-model-card claude">
+          <div class="about-model-name">◎ CLAUDE'S MODEL</div>
+          <div class="about-model-spec">
+            <strong>Algorithm:</strong> Gradient Boosting + Random Forest<br>
+            <strong>Training:</strong> Cricsheet IPL + T20 Intl (1,169 matches)<br>
+            <strong>Features:</strong> 20 — higher H2H weight than Amit's model<br>
+            <strong>Form weight:</strong> 30% last match (more conservative)<br>
+            <strong>CV Accuracy:</strong> 49.0% ± 3.2% (5-fold)<br>
+            <strong>M2 Prediction:</strong> RCB 57.4% · CSK 42.6%
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-footer">
+      <div class="about-footer-txt">
+        Built as part of a LinkedIn content series on practical ML in sports analytics.<br>
+        Season-long project: prediction accuracy tracked across all IPL 2026 RCB matches.<br><br>
+        <strong style="color:var(--gold)">Stack:</strong> Python · XGBoost · scikit-learn · Cricsheet · Kaggle IPL · Vanilla HTML/CSS/JS<br>
+        <strong style="color:var(--gold)">Follow:</strong> Amit Pandit · Data Scientist · Lulu Retail · Bengaluru
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /app -->
+<script>
+// ═══ TAB SWITCH ═══
+function sw(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ═══ MODEL TOGGLE ═══
+let claudeMode = false;
+function toggleMode() { claudeMode = !claudeMode; applyMode(); }
+function setMode(c) { claudeMode = c; applyMode(); }
+function applyMode() {
+  const tog = document.getElementById('tog');
+  const ll = document.getElementById('lbl-l'), lr = document.getElementById('lbl-r');
+  document.getElementById('ml-mode').style.display = claudeMode ? 'none' : 'block';
+  document.getElementById('wt-mode').style.display = claudeMode ? 'block' : 'none';
+  tog.className = 'toggle-track' + (claudeMode ? ' on' : '');
+  ll.className = 'toggle-opt' + (!claudeMode ? ' active-l' : '');
+  lr.className = 'toggle-opt' + (claudeMode ? ' active-r' : '');
+  compute();
+}
+
+// ═══ TOSS + PROBABILITY ENGINE ═══
+const BASE = { a: 65.7, c: 57.4 };
+const TOSS_ADJ = {
+  none:      { a: 0,    c: 0,    al: 'AWAITING TOSS',         cl: 'AWAITING TOSS' },
+  rcb_field: { a:+3.1,  c:+2.7,  al: 'RCB FIELDS → +3.1%',   cl: 'RCB FIELDS → +2.7%' },
+  rcb_bat:   { a:-1.9,  c:-1.6,  al: 'RCB BATS → −1.9%',     cl: 'RCB BATS → −1.6%' },
+  csk_field: { a:-2.2,  c:-2.6,  al: 'CSK FIELDS → −2.2%',   cl: 'CSK FIELDS → −2.6%' },
+  csk_bat:   { a:+1.1,  c:+0.9,  al: 'CSK BATS → +1.1%',     cl: 'CSK BATS → +0.9%' },
+};
+
+function compute() {
+  const t = document.getElementById('toss-sel').value;
+  const adj = TOSS_ADJ[t] || TOSS_ADJ.none;
+  const aF = Math.min(98, Math.max(2, BASE.a + adj.a));
+  const cF = Math.min(98, Math.max(2, BASE.c + adj.c));
+  const aCsk = +(100 - aF).toFixed(1);
+  const cCsk = +(100 - cF).toFixed(1);
+
+  // Amit UI
+  g('ml-rcb-pct').textContent = aF.toFixed(1) + '%';
+  g('ml-csk-pct').textContent = aCsk + '%';
+  g('amit-toss-val').textContent = adj.al;
+  g('amit-final').textContent = 'RCB ' + aF.toFixed(1) + '%';
+  g('amit-bk-title').textContent = 'HOW AMIT\'S MODEL ARRIVES AT ' + aF.toFixed(1) + '%';
+
+  // Claude UI
+  g('cl-rcb-pct').textContent = cF.toFixed(1) + '%';
+  g('cl-csk-pct').textContent = cCsk + '%';
+  g('cl-toss-val').textContent = adj.cl;
+  g('cl-final').textContent = 'RCB ' + cF.toFixed(1) + '%';
+  g('cl-bk-title').textContent = 'HOW CLAUDE\'S MODEL ARRIVES AT ' + cF.toFixed(1) + '%';
+
+  // Global bar uses active model
+  const pct = claudeMode ? cF : aF;
+  const cskPct = claudeMode ? cCsk : aCsk;
+  g('pp-rcb').textContent = pct.toFixed(1) + '%';
+  g('pp-csk').textContent = cskPct + '%';
+  g('hbr').style.width = pct + '%';
+  g('hbc').style.width = cskPct + '%';
+  g('vbr').style.height = pct + '%';
+  g('vbc').style.height = cskPct + '%';
+  g('cpct').textContent = 'RCB\n' + pct.toFixed(1) + '%';
+
+  // Verdict
+  let vtxt, confCls, confTxt;
+  if (pct >= 68) {
+    vtxt = 'RCB DOMINANT — FORM · HOME · INJURY STACK';
+    confCls = 'ch'; confTxt = 'HIGH CONFIDENCE';
+  } else if (pct >= 58) {
+    vtxt = 'RCB FAVOURITES — FORM + HOME GROUND + INJURIES';
+    confCls = 'cm'; confTxt = 'MODERATE CONFIDENCE';
+  } else if (pct >= 52) {
+    vtxt = 'RCB SLIM EDGE — CLOSE MATCH EXPECTED';
+    confCls = 'cl'; confTxt = 'LOW CONFIDENCE';
+  } else {
+    vtxt = 'TOO CLOSE TO CALL — COIN FLIP TERRITORY';
+    confCls = 'cl'; confTxt = 'LOW CONFIDENCE';
+  }
+  g('verdict-txt').textContent = vtxt;
+  const cb = g('conf-badge');
+  cb.textContent = confTxt;
+  cb.className = 'cf ' + confCls;
+}
+
+function g(id) { return document.getElementById(id); }
+
+// Init
+compute();
+
+// ═══ STAR PARTICLE ENGINE ═══
+(function() {
+  const canvas = document.getElementById('star-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [], scrollY = 0;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function mkStar() {
+    return {
+      x: Math.random() * W,
+      y: -10,
+      vy: 0.3 + Math.random() * 0.7,
+      vx: (Math.random() - 0.5) * 0.2,
+      size: 0.5 + Math.random() * 1.5,
+      opacity: 0.4 + Math.random() * 0.6,
+      trail: [],
+      color: Math.random() > 0.7
+        ? `rgba(255,107,71,${0.5 + Math.random() * 0.5})`
+        : `rgba(255,208,128,${0.5 + Math.random() * 0.5})`
+    };
+  }
+
+  function initStars() {
+    stars = [];
+    // Seed initial stars across the canvas height
+    for (let i = 0; i < 60; i++) {
+      const s = mkStar();
+      s.y = Math.random() * H;
+      stars.push(s);
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Parallax offset based on scroll
+    const parallax = scrollY * 0.08;
+
+    stars.forEach((s, i) => {
+      // Move
+      s.y += s.vy;
+      s.x += s.vx;
+
+      // Store trail
+      s.trail.push({ x: s.x, y: s.y });
+      if (s.trail.length > 8) s.trail.shift();
+
+      // Draw trail
+      if (s.trail.length > 1) {
+        for (let t = 1; t < s.trail.length; t++) {
+          const a = (t / s.trail.length) * s.opacity * 0.35;
+          ctx.beginPath();
+          ctx.strokeStyle = s.color.replace(/[\d.]+\)$/, a + ')');
+          ctx.lineWidth = s.size * (t / s.trail.length);
+          ctx.moveTo(s.trail[t-1].x, s.trail[t-1].y + parallax);
+          ctx.lineTo(s.trail[t].x, s.trail[t].y + parallax);
+          ctx.stroke();
+        }
+      }
+
+      // Draw star dot
+      ctx.beginPath();
+      ctx.arc(s.x, s.y + parallax, s.size, 0, Math.PI * 2);
+      ctx.fillStyle = s.color;
+      ctx.fill();
+
+      // Glow
+      const grd = ctx.createRadialGradient(s.x, s.y + parallax, 0, s.x, s.y + parallax, s.size * 4);
+      grd.addColorStop(0, s.color.replace(/[\d.]+\)$/, s.opacity * 0.3 + ')'));
+      grd.addColorStop(1, 'transparent');
+      ctx.beginPath();
+      ctx.arc(s.x, s.y + parallax, s.size * 4, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+
+      // Recycle
+      if (s.y > H + 20) {
+        stars[i] = mkStar();
+      }
+    });
+
+    // Spawn a new star occasionally
+    if (Math.random() < 0.08 && stars.length < 80) {
+      stars.push(mkStar());
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize();
+  initStars();
+  draw();
+})();
+</script>
+</body>
+</html>
