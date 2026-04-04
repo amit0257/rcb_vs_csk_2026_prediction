@@ -694,44 +694,153 @@ select#toss-sel:focus{border-color:var(--gold)}
 
 /* ══ MOBILE ══ */
 @media(max-width:640px){
-  .hdr{grid-template-columns:1fr 1fr}
-  .th.rcb{padding:14px 12px 14px;border-right:1px solid var(--b)}
-  .th.csk{padding:14px 12px 14px;text-align:right}
+
+  /* ── HEADER ── */
+  /* Stack RCB / CSK vertically, full width each */
+  .hdr{grid-template-columns:1fr;grid-template-rows:auto auto auto}
   .ctr{display:none}
-  .hdr::after{content:'5 APR 2026 · CHINNASWAMY · 19:30 IST';grid-column:1/-1;display:block;
-    font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.1em;padding:6px 12px;text-align:center;border-top:1px solid var(--b);background:var(--s1)}
-  .tc{font-size:44px}
-  .h2h-big{font-size:28px}
+  .th.rcb{border-right:none;border-bottom:1px solid var(--b);padding:16px 16px 14px;
+    animation:none}
+  .th.csk{border-left:none;border-top:none;padding:16px 16px 14px;text-align:left;
+    animation:none;background:linear-gradient(135deg,rgba(245,166,35,0.08) 0%,transparent 60%)}
+  /* Remove CSK right-align overrides on mobile */
+  .csk .hdr-stats{align-items:flex-start}
+  .csk .hstat-h2h{flex-direction:row}
+  .csk .venue-row{flex-direction:row}
+  .csk .last5-row{flex-direction:row}
+  .csk .inj-row{justify-content:flex-start}
+  .tc{font-size:42px}
+  .h2h-big{font-size:26px}
+  .hdr-stats{gap:8px;margin-top:10px}
+  /* Venue arc row: tighten on mobile */
+  .venue-arc{width:32px;height:32px}
+  .venue-arc svg{width:32px;height:32px}
+  .venue-arc-lbl{font-size:9px}
+  .l5d{width:20px;height:20px;font-size:7px}
+  /* Date strip below header */
+  .hdr::after{
+    content:'5 APR 2026 · M CHINNASWAMY STADIUM · 19:30 IST';
+    display:block;grid-column:1/-1;
+    font-family:var(--mono);font-size:7px;font-weight:500;color:var(--t2);
+    letter-spacing:0.08em;padding:7px 16px;text-align:center;
+    border-top:1px solid var(--b2);background:var(--s1)
+  }
+
+  /* ── PROB BAR ── */
+  .pbr{grid-template-columns:auto 1fr auto;gap:10px;padding:12px 14px 8px}
+  .pp{font-size:28px}
+  /* Toggle stacks below bar on mobile */
+  .pbr-mid{gap:6px}
+  .pbr-toggle{gap:6px;flex-wrap:wrap;justify-content:center}
+  .ptog-opt{font-size:7px;letter-spacing:0.05em}
+  .ptog-track{width:34px;height:17px}
+  .ptog-thumb{width:10px;height:10px;top:3px;left:3px}
+  .ptog-track.on .ptog-thumb{left:19px}
+
+  /* ── EXPLAINER STRIP ── */
+  .explainer{padding:7px 14px;gap:5px}
+  .exp-txt{font-size:12px}
+  .exp-sep{display:none}
+  .exp-sub{display:none}
+
+  /* ── TABS ── */
+  .tab{padding:12px 13px;font-size:9px;letter-spacing:0.06em}
+
+  /* ── TOSS ROW ── */
+  .toss-row{padding:8px 14px;gap:6px}
+  select#toss-sel{font-size:9px;padding:5px 8px}
+  .toss-hint{display:none}
+
+  /* ── PREDICT PANEL ── */
   .pred-split,.factors-mini{grid-template-columns:1fr}
-  .pc-pct{font-size:42px}
-  .about-stats{grid-template-columns:repeat(2,1fr)}
-  .about-grid,.about-model-row{grid-template-columns:1fr}
-  .about-card{border-right:none}.about-card:nth-last-child(-n+2){border-bottom:1px solid var(--b)}
-  .about-card:last-child{border-bottom:none}
-  .sq-split,.fp-grid{grid-template-columns:1fr}.fp-half{border-right:none}
-  .h2h-band{grid-template-columns:1fr 1fr}
-  .wr-board{grid-template-columns:1fr 1fr}
-  .wml-hdr,.wml-row{grid-template-columns:1fr 70px 80px 80px}
-  .mn-key,.pm-key{min-width:80px}
-  .about-bio{grid-template-columns:1fr;gap:14px}
-  .about-avatar{width:56px;height:56px;font-size:22px}
-  .about-bio-name{font-size:22px}
-  .fp-row{grid-template-columns:14px 1fr 40px 30px 40px;gap:4px;padding:6px 10px}
+  .pc-pct{font-size:40px}
+  .mn-key,.pm-key{min-width:72px}
+
+  /* ── FORM ENGINE ── */
+  .fp-grid{grid-template-columns:1fr}
+  .fp-half{border-right:none;border-bottom:1px solid var(--b2)}
+  .fp-half:last-child{border-bottom:none}
+  .fp-row{grid-template-columns:16px 1fr 44px 32px;gap:4px;padding:6px 10px}
+  /* Hide delta column on mobile — too cramped */
+  .fp-delta{display:none}
   .fp-hdr,.fp-sum{padding:7px 10px}
-  .l5d{width:18px;height:18px;font-size:6px}
-  .ae-flow-diagram{grid-template-columns:1fr;grid-template-rows:auto}
-  .ae-arrow-wrap{flex-direction:row;padding:4px 12px;min-width:unset;min-height:28px;border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+  .fp-name{font-size:11px}
+  .fp-perf{font-size:7px}
+
+  /* ── SQUADS ── */
+  .sq-split{grid-template-columns:1fr}
+  .sqh-half{border-right:none;border-bottom:1px solid var(--b2)}
+  .sqh-half:last-child{border-bottom:none}
+  .sq-scroll{max-height:none}
+  /* Squad rows: hide spark + score, show name + tag */
+  .pr{grid-template-columns:26px 1fr auto}
+  .spark,.psc{display:none}
+
+  /* ── H2H ── */
+  .h2h-band{grid-template-columns:1fr 1fr}
+  /* 4-col → 2×2 grid */
+
+  /* ── WAR ROOM SCOREBOARD ── */
+  .wr-board{grid-template-columns:1fr 1fr}
+  .wr-score{font-size:48px}
+
+  /* ── WAR ROOM MATCH LOG ── */
+  .wml-hdr,.wml-row{grid-template-columns:1fr 60px 72px}
+  /* Drop one model column — show only Amit on mobile */
+  .wml-hdr > *:last-child,.wml-row > *:last-child{display:none}
+
+  /* ── MATCH CARDS (War Room) ── */
+  .mc-header{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    grid-template-rows:auto auto;
+    gap:6px 10px;
+    padding:12px 14px 10px 18px;
+    align-items:start
+  }
+  .mc-num{grid-row:1;grid-column:1;align-self:center}
+  .mc-teams{grid-row:1;grid-column:2}
+  .mc-meta{grid-row:2;grid-column:1/-1;padding-left:0}
+  .mc-btn{
+    grid-row:3;grid-column:1/-1;
+    justify-self:start;
+    margin-top:4px;
+    font-size:7px;padding:5px 10px
+  }
+  .mc-pred-row{grid-template-columns:1fr;grid-template-rows:auto}
+  .mc-divider{width:100%;height:1px;align-self:unset}
+  .mc-pred-block{padding:8px 10px}
+  .mc-pred-val{font-size:18px}
+  .mc-body{padding:0 12px 10px 18px}
+  .mc-pm{flex-direction:column;gap:4px}
+  .mc-pm-key{min-width:unset}
+
+  /* ── ABOUT ── */
+  .about-bio{grid-template-columns:1fr;gap:12px}
+  .about-avatar{width:52px;height:52px;font-size:20px}
+  .about-bio-name{font-size:20px}
+  .about-stats{grid-template-columns:repeat(2,1fr)}
+  .about-stat-num{font-size:26px}
+  .about-grid,.about-model-row{grid-template-columns:1fr}
+  .about-card{border-right:none}
+  .about-card:nth-last-child(-n+2){border-bottom:1px solid var(--b)}
+  .about-card:last-child{border-bottom:none}
+
+  /* ── ABOUT FLOW DIAGRAM ── */
+  .ae-flow-diagram{grid-template-columns:1fr}
+  .ae-arrow-wrap{
+    flex-direction:row;padding:6px 14px;min-height:24px;
+    border-top:1px solid var(--b);border-bottom:1px solid var(--b)
+  }
   .ae-arrow-line{flex:1;height:1px;width:unset}
+  .ae-arrow-label-2{display:none}
   .ae-roles{grid-template-columns:1fr}
   .ae-role-card{border-right:none;border-bottom:1px solid var(--b)}
   .ae-role-card:last-child{border-bottom:none}
-  .ae-thesis-headline{font-size:26px}
-  .ae-manifesto-txt{font-size:14px}
   .collab-node{border-left:none;border-right:none;border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
-  .mc-header{padding:10px 14px 10px 18px;gap:8px}
-  .mc-pred-row{grid-template-columns:1fr;grid-template-rows:auto}
-  .mc-divider{width:100%;height:1px;align-self:unset}
-  .mc-body{padding:0 14px 10px 18px}
+  .ae-thesis-headline{font-size:24px}
+  .ae-manifesto-txt{font-size:14px}
+  .ae-pills,.ae-manifesto-pills{gap:5px}
 }
 </style>
 </head>
