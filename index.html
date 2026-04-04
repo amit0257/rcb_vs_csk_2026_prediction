@@ -80,79 +80,61 @@ body{background:var(--bg);color:var(--t1);font-family:var(--head);font-size:12px
 .cpct{font-family:var(--head);font-size:11px;font-weight:700;color:var(--gold2);text-align:center;line-height:1.6;letter-spacing:1px}
 .mdt{font-family:var(--mono);font-size:6px;color:var(--t3);text-align:center;line-height:2;letter-spacing:0.06em}
 
-/* PROB BAR — redesigned as hero strip with embedded toggle */
-.pbr{
-  background:var(--s1);border-bottom:1px solid var(--b2);position:relative;
-  animation:fadeUp 0.5s ease 0.3s both;
-}
-.pbr::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,rgba(232,52,26,0.07) 0%,transparent 35%,transparent 65%,rgba(245,166,35,0.07) 100%)}
-/* Top row: percentages + bar */
-.pbr-nums{display:grid;grid-template-columns:90px 1fr 90px;align-items:center;gap:14px;padding:14px 20px 8px}
-.pp{font-family:var(--head);font-size:42px;font-weight:900;line-height:1;transition:all 0.4s;letter-spacing:-0.5px}
-.pp.r{color:var(--rcb2)}.pp.c{color:var(--csk2);text-align:right}
-.pp-sub{font-family:var(--mono);font-size:7px;letter-spacing:0.1em;margin-top:2px}
-.pp-sub.r{color:var(--rcb2);opacity:0.6}.pp-sub.c{color:var(--csk2);opacity:0.6;text-align:right}
-.hb-wrap{display:flex;flex-direction:column;gap:4px}
-.hb-label{display:flex;justify-content:center;font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.12em}
+/* ══ EXPLAINER STRIP ══ */
+.explainer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 20px;background:var(--s1);border-bottom:1px solid var(--b);animation:fadeUp 0.4s ease 0.2s both}
+.exp-icon{color:var(--rcb2);font-size:12px;flex-shrink:0}
+.exp-txt{font-family:var(--head);font-size:14px;font-weight:700;letter-spacing:1px;color:var(--t1)}
+.exp-txt strong{color:var(--gold2)}
+.exp-sep{color:var(--t3);font-family:var(--mono);font-size:10px}
+.exp-sub{font-family:var(--mono);font-size:8px;color:var(--t3);letter-spacing:0.06em}
+
+/* ══ PROB BAR HERO ══ */
+.pbr{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px 20px 10px;background:var(--s1);border-bottom:1px solid var(--b2);position:relative;animation:fadeUp 0.5s ease 0.3s both}
+.pbr::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(232,52,26,0.07) 0%,transparent 30%,transparent 70%,rgba(245,166,35,0.07) 100%)}
+.pbr-team{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.pbr-team-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.18em}
+.pbr-mid{display:flex;flex-direction:column;gap:7px}
+.pp{font-family:var(--head);font-size:34px;font-weight:900;line-height:1;transition:all 0.4s;letter-spacing:0}
+.pp.r{color:var(--rcb2)}.pp.c{color:var(--csk2)}
 .hb{height:6px;background:var(--s3);display:flex;overflow:hidden;border-radius:3px;position:relative}
 .hbr{background:linear-gradient(90deg,var(--rcb),var(--rcb2));transition:width 0.9s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
 .hbc{background:linear-gradient(90deg,var(--csk2),var(--csk));flex:1;position:relative;overflow:hidden}
-.hbr::after,.hbc::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shimmer 2.5s ease-in-out infinite}
+.hbr::after,.hbc::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shimmer 2.5s ease-in-out infinite}
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
-/* Bottom row: toggle embedded */
-.pbr-bottom{display:flex;align-items:center;justify-content:space-between;padding:6px 20px 12px;gap:12px;flex-wrap:wrap}
-.pbr-toggle{display:flex;align-items:center;gap:10px}
-.pbr-toggle-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.15em}
-.toggle-wrap{display:flex;align-items:center;gap:10px}
-.toggle-opt{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:0.06em;color:var(--t3);transition:all 0.25s;cursor:pointer;padding:3px 0}
-.toggle-opt.active-l{color:var(--warn)}.toggle-opt.active-r{color:var(--ok)}
-.toggle-track{width:44px;height:24px;background:var(--s3);border:1px solid var(--b2);border-radius:12px;position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0}
-.toggle-track.on{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.35)}
-.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;
-  background:linear-gradient(135deg,#FFD060,#F5A623);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
-.toggle-track.on .toggle-thumb{left:23px;background:linear-gradient(135deg,#2ECC71,#1A8F45)}
-.pbr-toss{display:flex;align-items:center;gap:8px}
-.toss-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.15em;white-space:nowrap}
-select#toss-sel{background:var(--s3);border:1px solid var(--b2);color:var(--t1);font-family:var(--mono);font-size:8px;padding:5px 10px;cursor:pointer;border-radius:3px;transition:border-color 0.2s;letter-spacing:0.04em;outline:none}
-select#toss-sel:hover{border-color:var(--b3)}
-select#toss-sel:focus{border-color:var(--gold)}
+.pbr-toggle{display:flex;align-items:center;gap:8px;justify-content:center}
+.ptog-opt{font-family:var(--mono);font-size:8px;letter-spacing:0.08em;color:var(--t3);cursor:pointer;transition:color 0.2s;white-space:nowrap;padding:3px 0}
+.ptog-opt.active-l{color:var(--warn)}.ptog-opt.active-r{color:var(--ok)}
+.ptog-track{width:40px;height:20px;background:var(--s3);border:1px solid var(--b2);border-radius:10px;position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0}
+.ptog-track.on{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.35)}
+.ptog-thumb{position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#FFD060,#F5A623);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+.ptog-track.on .ptog-thumb{left:23px;background:linear-gradient(135deg,#2ECC71,#1A8F45)}
 
-/* EXPLAINER STRIP */
-.explainer{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  padding:7px 20px;background:linear-gradient(90deg,rgba(232,52,26,0.06),rgba(212,168,67,0.06),rgba(245,166,35,0.06));
-  border-bottom:1px solid var(--b2);
-}
-.exp-txt{font-family:var(--mono);font-size:8px;color:var(--t2);letter-spacing:0.06em;text-align:center}
-.exp-txt strong{color:var(--gold2)}
-.exp-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0.5;flex-shrink:0}
-
-/* VERDICT */
+/* ══ VERDICT ══ */
 .vr{display:flex;align-items:center;justify-content:space-between;padding:7px 20px;background:var(--s2);border-bottom:1px solid var(--b2)}
-.vt{font-family:var(--head);font-size:13px;font-weight:700;letter-spacing:2.5px;color:var(--gold2);animation:goldPulse 4s ease-in-out infinite}
+.vt{font-family:var(--head);font-size:14px;font-weight:700;letter-spacing:2.5px;color:var(--gold2);animation:goldPulse 4s ease-in-out infinite}
 @keyframes goldPulse{0%,100%{color:var(--gold2)}50%{color:var(--csk2)}}
 .cf{font-family:var(--mono);font-size:7px;font-weight:600;letter-spacing:0.15em;padding:3px 10px;border:1px solid;border-radius:20px}
 .ch{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08)}
 .cm{color:var(--warn);border-color:rgba(243,156,18,0.4);background:rgba(243,156,18,0.08)}
 .cl{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.08)}
 
-/* TABS — reordered and renamed */
-.tabs{display:flex;border-bottom:1px solid var(--b2);overflow-x:auto;scrollbar-width:none;background:var(--s1);position:relative;animation:fadeUp 0.5s ease 0.6s both}
-.tabs::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,var(--rcb),var(--gold),var(--csk));opacity:0.35}
+/* ══ TABS — bolder active ══ */
+.tabs{display:flex;border-bottom:2px solid var(--b2);overflow-x:auto;scrollbar-width:none;background:var(--s1);position:relative;animation:fadeUp 0.5s ease 0.6s both}
+.tabs::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rcb),var(--gold),var(--csk));opacity:0.3}
 .tabs::-webkit-scrollbar{display:none}
-.tab{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--t3);
-  padding:12px 15px;border:none;background:none;cursor:pointer;
-  border-bottom:3px solid transparent;margin-bottom:-1px;
-  white-space:nowrap;transition:all 0.2s;position:relative;flex-shrink:0}
-.tab.active{color:var(--gold2);border-bottom-color:var(--gold);background:rgba(212,168,67,0.06)}
-.tab:hover:not(.active){color:var(--t1);background:rgba(255,220,150,0.04)}
-.tab.active::after{content:'';position:absolute;bottom:-3px;left:10%;right:10%;height:3px;
-  background:linear-gradient(90deg,transparent,var(--gold2),transparent);
-  animation:tabSlide 0.3s ease both;border-radius:2px}
+.tab{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--t3);padding:14px 18px;border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all 0.2s;position:relative}
+.tab.active{color:var(--gold2);border-bottom-color:var(--gold);background:rgba(212,168,67,0.07)}
+.tab.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:tabSlide 0.3s ease both}
 @keyframes tabSlide{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tab:hover:not(.active){color:var(--t2);background:rgba(255,220,150,0.04)}
+
+/* ══ TOSS ROW ══ */
+.toss-row{padding:10px 20px;border-bottom:1px solid var(--b);background:var(--s2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.toss-lbl{font-family:var(--mono);font-size:8px;color:var(--gold);letter-spacing:0.18em;flex-shrink:0}
+select#toss-sel{background:var(--s3);border:1px solid var(--b2);color:var(--t1);font-family:var(--mono);font-size:9px;padding:6px 10px;cursor:pointer;border-radius:3px;transition:border-color 0.2s;letter-spacing:0.04em;outline:none;flex:1}
+select#toss-sel:hover{border-color:var(--b3)}
+select#toss-sel:focus{border-color:var(--gold)}
+.toss-hint{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.08em;white-space:nowrap;flex-shrink:0}
 
 /* PANELS */
 .panel{display:none}.panel.active{display:block;animation:panelIn 0.3s cubic-bezier(0.16,1,0.3,1)}
@@ -164,8 +146,16 @@ select#toss-sel:focus{border-color:var(--gold)}
 .stx{font-family:var(--mono);font-size:7px;font-weight:600;letter-spacing:0.25em;color:var(--gold);white-space:nowrap}
 .sl{flex:1;height:1px;background:linear-gradient(90deg,var(--b2),transparent)}
 
-/* TOSS ROW — legacy, kept for spacing */
-.toss-row{display:none}
+/* MODEL SWITCH */
+.model-switch{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--b);background:var(--s2)}
+
+
+/* TOSS ROW */
+.toss-row{padding:10px 20px;border-bottom:1px solid var(--b);background:var(--s2);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.toss-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.2em}
+select#toss-sel{background:var(--s3);border:1px solid var(--b2);color:var(--t1);font-family:var(--mono);font-size:9px;padding:7px 12px;cursor:pointer;border-radius:3px;transition:border-color 0.2s;letter-spacing:0.05em;outline:none}
+select#toss-sel:hover{border-color:var(--b3)}
+select#toss-sel:focus{border-color:var(--gold)}
 
 /* PRED CARDS */
 .pred-main{padding:20px;border-bottom:1px solid var(--b)}
@@ -389,8 +379,8 @@ select#toss-sel:focus{border-color:var(--gold)}
 .about-footer{padding:20px 24px;text-align:center}
 .about-footer-txt{font-family:var(--mono);font-size:8px;color:var(--t3);line-height:2;letter-spacing:0.05em}
 
-/* ══ AMBIENT CANVAS ══ */
-#star-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;opacity:0.6}
+/* ══ STAR CANVAS ══ */
+#star-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;opacity:0.55}
 
 /* ══ HEADER STATS STRIP ══ */
 /* Replaces the old .tst / hdr-news approach */
@@ -723,13 +713,6 @@ select#toss-sel:focus{border-color:var(--gold)}
   .wr-board{grid-template-columns:1fr 1fr}
   .wml-hdr,.wml-row{grid-template-columns:1fr 70px 80px 80px}
   .mn-key,.pm-key{min-width:80px}
-  .pbr-nums{grid-template-columns:70px 1fr 70px;padding:10px 14px 6px}
-  .pp{font-size:30px}
-  .pbr-bottom{flex-direction:column;gap:8px;padding:6px 14px 10px}
-  .pbr-toggle,.pbr-toss{width:100%}
-  select#toss-sel{flex:1}
-  .explainer{padding:6px 14px}
-  .exp-txt{font-size:7px}
   .about-bio{grid-template-columns:1fr;gap:14px}
   .about-avatar{width:56px;height:56px;font-size:22px}
   .about-bio-name{font-size:22px}
@@ -807,8 +790,8 @@ select#toss-sel:focus{border-color:var(--gold)}
 
   <div class="ctr">
     <div class="vs">VS</div>
-    <div class="vbo"><div class="vbr" id="vbr" style="height:66%"></div><div class="vbc" id="vbc" style="height:34%"></div></div>
-    <div class="cpct" id="cpct">RCB<br>65.7%</div>
+    <div class="vbo"><div class="vbr" id="vbr" style="height:65.3%"></div><div class="vbc" id="vbc" style="height:34.7%"></div></div>
+    <div class="cpct" id="cpct">RCB<br>65.3%</div>
     <div class="mdt">5 APR 2026<br>CHINNASWAMY<br>19:30 IST</div>
   </div>
 
@@ -860,51 +843,34 @@ select#toss-sel:focus{border-color:var(--gold)}
   </div>
 </div>
 
-<!-- EXPLAINER -->
+<!-- EXPLAINER STRIP -->
 <div class="explainer">
-  <div class="exp-dot"></div>
-  <div class="exp-txt"><strong>Two models. One match.</strong> Amit's XGBoost vs Claude's Gradient Boosting — predicting every RCB game this season. Toggle between them. See where they disagree.</div>
-  <div class="exp-dot"></div>
+  <span class="exp-icon">◈</span>
+  <span class="exp-txt">Two models. One match. <strong>Who gets it right?</strong></span>
+  <span class="exp-sep">·</span>
+  <span class="exp-sub">XGBoost (Amit) vs Gradient Boost (Claude) · Updated after every match</span>
 </div>
 
-<!-- PROB BAR — hero strip with embedded toggle + toss -->
+<!-- HERO PROB STRIP -->
 <div class="pbr">
-  <div class="pbr-nums">
-    <div>
-      <div class="pp r" id="pp-rcb">65.7%</div>
-      <div class="pp-sub r">RCB WIN</div>
+  <div class="pbr-team">
+    <div class="pp r" id="pp-rcb">65.3%</div>
+    <div class="pbr-team-lbl">RCB</div>
+  </div>
+  <div class="pbr-mid">
+    <div class="hb">
+      <div class="hbr" id="hbr" style="width:65.3%"></div>
+      <div class="hbc" id="hbc" style="width:34.7%"></div>
     </div>
-    <div class="hb-wrap">
-      <div class="hb-label" id="hb-model-lbl">◈ AMIT'S MODEL · XGBOOST + RF</div>
-      <div class="hb">
-        <div class="hbr" id="hbr" style="width:65.7%"></div>
-        <div class="hbc" id="hbc" style="width:34.3%"></div>
-      </div>
-    </div>
-    <div>
-      <div class="pp c" id="pp-csk">34.3%</div>
-      <div class="pp-sub c">CSK WIN</div>
+    <div class="pbr-toggle">
+      <span class="ptog-opt active-l" id="lbl-l" onclick="setMode(false)">◈ AMIT · XGBoost</span>
+      <div class="ptog-track" id="tog" onclick="toggleMode()"><div class="ptog-thumb"></div></div>
+      <span class="ptog-opt" id="lbl-r" onclick="setMode(true)">◎ CLAUDE · Grad Boost</span>
     </div>
   </div>
-  <div class="pbr-bottom">
-    <div class="pbr-toggle">
-      <span class="pbr-toggle-lbl">MODEL</span>
-      <div class="toggle-wrap">
-        <span class="toggle-opt active-l" id="lbl-l" onclick="setMode(false)">◈ AMIT (XGBoost)</span>
-        <div class="toggle-track" id="tog" onclick="toggleMode()"><div class="toggle-thumb"></div></div>
-        <span class="toggle-opt" id="lbl-r" onclick="setMode(true)">◎ CLAUDE (GradBoost)</span>
-      </div>
-    </div>
-    <div class="pbr-toss">
-      <span class="toss-lbl">ADJUST FOR TOSS</span>
-      <select id="toss-sel" onchange="compute()">
-        <option value="none">TOSS NOT YET DECIDED</option>
-        <option value="rcb_field">RCB WIN → CHOOSE TO FIELD</option>
-        <option value="rcb_bat">RCB WIN → CHOOSE TO BAT</option>
-        <option value="csk_field">CSK WIN → CHOOSE TO FIELD</option>
-        <option value="csk_bat">CSK WIN → CHOOSE TO BAT</option>
-      </select>
-    </div>
+  <div class="pbr-team" style="text-align:right">
+    <div class="pp c" id="pp-csk">34.7%</div>
+    <div class="pbr-team-lbl" style="text-align:right">CSK</div>
   </div>
 </div>
 <div class="vr">
@@ -912,32 +878,43 @@ select#toss-sel:focus{border-color:var(--gold)}
   <span class="cf cm" id="conf-badge">MODERATE CONFIDENCE</span>
 </div>
 
-<!-- TABS — reordered: Prediction first, H2H second, then depth tabs -->
+<!-- TABS -->
 <div class="tabs">
-  <button class="tab active" onclick="sw('predict',this)">◈ PREDICTION</button>
-  <button class="tab" onclick="sw('h2h',this)">⬡ H2H + HISTORY</button>
-  <button class="tab" onclick="sw('form',this)">▲ PLAYER FORM</button>
-  <button class="tab" onclick="sw('squads',this)">◉ SQUADS</button>
-  <button class="tab" onclick="sw('warroom',this)">◆ SEASON TRACKER</button>
-  <button class="tab" onclick="sw('about',this)">◎ ABOUT</button>
+  <button class="tab active" onclick="sw('predict',this)">PREDICTION</button>
+  <button class="tab" onclick="sw('h2h',this)">H2H + HISTORY</button>
+  <button class="tab" onclick="sw('form',this)">PLAYER FORM</button>
+  <button class="tab" onclick="sw('squads',this)">SQUADS</button>
+  <button class="tab" onclick="sw('warroom',this)">SEASON TRACKER</button>
+  <button class="tab" onclick="sw('about',this)">ABOUT</button>
 </div>
 
 <!-- ═══════════════════ PREDICT ═══════════════════ -->
 <div class="panel active" id="tab-predict">
+  <div class="toss-row">
+    <span class="toss-lbl">SET TOSS</span>
+    <select id="toss-sel" onchange="compute()">
+      <option value="none">Toss not yet decided</option>
+      <option value="rcb_field">RCB win toss → Field first</option>
+      <option value="rcb_bat">RCB win toss → Bat first</option>
+      <option value="csk_field">CSK win toss → Field first</option>
+      <option value="csk_bat">CSK win toss → Bat first</option>
+    </select>
+    <span class="toss-hint">Updates both models live</span>
+  </div>
 
   <!-- AMIT -->
   <div id="ml-mode">
-    <div class="sec"><span class="stx">AMIT'S MODEL V2 // XGBOOST + RF · ELO · LAST-MATCH FORM WEIGHTED</span><div class="sl"></div></div>
+    <div class="sec"><span class="stx">AMIT'S MODEL // XGBOOST + RF · ELO · LAST-MATCH FORM</span><div class="sl"></div></div>
     <div class="pred-main">
       <div class="pred-split">
         <div class="pred-card rcb-card">
           <div class="pc-lbl">RCB WIN PROBABILITY</div>
-          <div class="pc-pct r" id="ml-rcb-pct">65.7%</div>
+          <div class="pc-pct r" id="ml-rcb-pct">65.3%</div>
           <div class="pc-sub" id="ml-rcb-sub">XGBoost: 62.1% · RF: 68.2%<br>Form-adjusted · Toss pending</div>
         </div>
         <div class="pred-card csk-card">
           <div class="pc-lbl">CSK WIN PROBABILITY</div>
-          <div class="pc-pct c" id="ml-csk-pct">34.3%</div>
+          <div class="pc-pct c" id="ml-csk-pct">34.7%</div>
           <div class="pc-sub" id="ml-csk-sub">ELO gap: −33 · Form adj: −11.4<br>Injury adj: −7.1 · Toss pending</div>
         </div>
       </div>
@@ -950,7 +927,7 @@ select#toss-sel:focus{border-color:var(--gold)}
       </div>
 
       <div class="inj-strip">
-        <div class="inj-title" id="amit-bk-title">HOW AMIT'S MODEL ARRIVES AT 65.7%</div>
+        <div class="inj-title" id="amit-bk-title">HOW AMIT'S MODEL ARRIVES AT 65.3%</div>
         <div class="inj-item"><span class="inj-name">BASE ENSEMBLE — ELO + VENUE + H2H (no form, no injuries)</span><span class="inj-delta neu">RCB 54.0%</span></div>
         <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ RCB BATTING FORM M1 — Kohli 9.7 · Padikkal 9.4 · Patidar 8.8</span><span class="inj-delta pos">+4.8%</span></div>
         <div class="inj-item" style="background:rgba(46,204,113,0.03)"><span class="inj-name">↑ RCB BOWLING FORM M1 — Duffy 3/22 (POTM) · Shepherd 3/54</span><span class="inj-delta pos">+2.1%</span></div>
@@ -962,7 +939,7 @@ select#toss-sel:focus{border-color:var(--gold)}
         <div class="inj-item"><span class="inj-name" id="amit-toss-lbl">TOSS IMPACT</span><span class="inj-delta neu" id="amit-toss-val">AWAITING TOSS</span></div>
         <div class="inj-item" style="border-top:1px solid var(--b2);margin-top:4px;padding-top:8px">
           <span class="inj-name" style="color:var(--t1);font-size:9px;font-weight:700">AMIT'S FINAL CALL</span>
-          <span class="inj-delta pos" style="font-size:20px" id="amit-final">RCB 65.7%</span>
+          <span class="inj-delta pos" style="font-size:20px" id="amit-final">RCB 65.3%</span>
         </div>
       </div>
       <div class="model-note" style="margin-top:14px">
@@ -1016,7 +993,7 @@ select#toss-sel:focus{border-color:var(--gold)}
       <div class="model-note" style="margin-top:14px">
         <div class="mn-row"><span class="mn-key">WHY NARROWER?</span><span class="mn-val">CSK's 127 all-out was on a damp red-soil Guwahati wicket vs Archer + Burger at their best. Chinnaswamy is a very different surface — flat, true, high-scoring. I discount that collapse signal by ~30%.</span></div>
         <div class="mn-row"><span class="mn-key">H2H MATTERS</span><span class="mn-val">65 matches, CSK 33–32. Exactly split. One bad game doesn't override 18 years of head-to-head DNA. When CSK face RCB, something usually happens. 42.6% is not a massive underdog call.</span></div>
-        <div class="mn-row"><span class="mn-key">GAP VS AMIT</span><span class="mn-val">Amit: 65.7% vs Claude: 57.4% → 8.3% gap (down from M1's 16.6%). Both agree RCB are favourites. We disagree on magnitude. The real number probably sits around 60–63%.</span></div>
+        <div class="mn-row"><span class="mn-key">GAP VS AMIT</span><span class="mn-val">Amit: 65.3% vs Claude: 57.4% → 7.9% gap (down from M1's 16.6%). Both agree RCB are favourites. We disagree on magnitude. The real number probably sits around 60–63%.</span></div>
       </div>
     </div>
   </div>
@@ -1418,7 +1395,7 @@ select#toss-sel:focus{border-color:var(--gold)}
       <div class="mc-pred-row">
         <div class="mc-pred-block">
           <div class="mc-pred-lbl">◈ AMIT PREDICTED</div>
-          <div class="mc-pred-val" style="color:var(--rcb2)">RCB 65.7%</div>
+          <div class="mc-pred-val" style="color:var(--rcb2)">RCB 65.3%</div>
           <span class="badge badge-warn">PENDING →</span>
         </div>
         <div class="mc-divider"></div>
@@ -1430,13 +1407,13 @@ select#toss-sel:focus{border-color:var(--gold)}
         <div class="mc-divider"></div>
         <div class="mc-pred-block">
           <div class="mc-pred-lbl">MODEL GAP</div>
-          <div class="mc-pred-val" style="color:var(--gold2)">8.3%</div>
+          <div class="mc-pred-val" style="color:var(--gold2)">7.9%</div>
           <span class="mc-pred-note">Both call RCB ✓</span>
         </div>
       </div>
       <div class="mc-pm">
         <span class="mc-pm-key">KEY INSIGHT</span>
-        <span class="mc-pm-val">First match both models agree on direction. Gap shrunk 16.6% → 8.3% after applying real M1 form data. Disagreement is now magnitude, not direction.</span>
+        <span class="mc-pm-val">First match both models agree on direction. Gap shrunk 16.6% → 7.9% after form + momentum weighting. Models still agree on direction, disagree on magnitude.</span>
       </div>
     </div>
   </div>
@@ -1470,7 +1447,7 @@ select#toss-sel:focus{border-color:var(--gold)}
 
   <div class="wr-narrative">
     <div class="wr-narrative-lbl">WAR ROOM SEASON NARRATIVE</div>
-    <div class="wr-narrative-txt">Both wrong in M1. Both calling RCB in M2 — first agreement all season. The gap is closing: 16.6% → 8.3%. Each match the models learn. Each match the story gets richer. That's why we build this in public.</div>
+    <div class="wr-narrative-txt">Both wrong in M1. Both calling RCB in M2 — first agreement all season. The gap is 7.9% — Amit weights momentum and form higher, Claude discounts 2026 signals. Each match the models learn. Each match the story gets richer. That's why we build this in public.</div>
   </div>
 </div>
 
@@ -1598,7 +1575,7 @@ select#toss-sel:focus{border-color:var(--gold)}
       <div class="about-stat"><div class="about-stat-num">278K</div><div class="about-stat-lbl">Deliveries Analysed</div></div>
       <div class="about-stat"><div class="about-stat-num">1,169</div><div class="about-stat-lbl">IPL Matches</div></div>
       <div class="about-stat"><div class="about-stat-num">52.7%</div><div class="about-stat-lbl">Amit Accuracy</div></div>
-      <div class="about-stat"><div class="about-stat-num">8.3%</div><div class="about-stat-lbl">M2 Model Gap</div></div>
+      <div class="about-stat"><div class="about-stat-num">7.9%</div><div class="about-stat-lbl">M2 Model Gap</div></div>
     </div>
     <div class="about-grid">
       <div class="about-card">
@@ -1658,7 +1635,7 @@ select#toss-sel:focus{border-color:var(--gold)}
             <strong>Features:</strong> 20 — Elo, form (M2 updated), venue, H2H, toss<br>
             <strong>Form weight:</strong> 60% base + 40% last match<br>
             <strong>CV Accuracy:</strong> 52.7% ± 1.8% (5-fold)<br>
-            <strong>M2 Prediction:</strong> RCB 65.7% · CSK 34.3%
+            <strong>M2 Prediction:</strong> RCB 65.3% · CSK 34.7%
           </div>
         </div>
         <div class="about-model-card claude">
@@ -1704,23 +1681,20 @@ function applyMode() {
   const ll = document.getElementById('lbl-l'), lr = document.getElementById('lbl-r');
   document.getElementById('ml-mode').style.display = claudeMode ? 'none' : 'block';
   document.getElementById('wt-mode').style.display = claudeMode ? 'block' : 'none';
-  tog.className = 'toggle-track' + (claudeMode ? ' on' : '');
-  ll.className = 'toggle-opt' + (!claudeMode ? ' active-l' : '');
-  lr.className = 'toggle-opt' + (claudeMode ? ' active-r' : '');
-  // Update bar label
-  const lbl = document.getElementById('hb-model-lbl');
-  if (lbl) lbl.textContent = claudeMode ? '◎ CLAUDE\'S MODEL · GRADIENT BOOST + RF' : '◈ AMIT\'S MODEL · XGBOOST + RF';
+  tog.className = 'ptog-track' + (claudeMode ? ' on' : '');
+  ll.className = 'ptog-opt' + (!claudeMode ? ' active-l' : '');
+  lr.className = 'ptog-opt' + (claudeMode ? ' active-r' : '');
   compute();
 }
 
 // ═══ TOSS + PROBABILITY ENGINE ═══
-const BASE = { a: 65.7, c: 57.4 };
+const BASE = { a: 65.3, c: 57.4 };
 const TOSS_ADJ = {
   none:      { a: 0,    c: 0,    al: 'AWAITING TOSS',         cl: 'AWAITING TOSS' },
-  rcb_field: { a:+3.1,  c:+2.7,  al: 'RCB FIELDS → +3.1%',   cl: 'RCB FIELDS → +2.7%' },
-  rcb_bat:   { a:-1.9,  c:-1.6,  al: 'RCB BATS → −1.9%',     cl: 'RCB BATS → −1.6%' },
-  csk_field: { a:-2.2,  c:-2.6,  al: 'CSK FIELDS → −2.2%',   cl: 'CSK FIELDS → −2.6%' },
-  csk_bat:   { a:+1.1,  c:+0.9,  al: 'CSK BATS → +1.1%',     cl: 'CSK BATS → +0.9%' },
+  rcb_field: { a:+2.0,  c:+2.0,  al: 'RCB FIELDS → +2.0%',   cl: 'RCB FIELDS → +2.0%' },
+  rcb_bat:   { a:+2.5,  c:+2.5,  al: 'RCB BATS → +2.5%',     cl: 'RCB BATS → +2.5%' },
+  csk_field: { a:-4.9,  c:-4.9,  al: 'CSK FIELDS → −4.9%',   cl: 'CSK FIELDS → −4.9%' },
+  csk_bat:   { a:0.0,   c:0.0,   al: 'CSK BATS → 0.0%',      cl: 'CSK BATS → 0.0%' },
 };
 
 function compute() {
@@ -1782,76 +1756,128 @@ function g(id) { return document.getElementById(id); }
 // Init
 compute();
 
-// ═══ AMBIENT DATA ORB ENGINE ═══
-// Replaces falling stars — slow-drifting translucent circles
-// Feels like ambient data visualization, not Christmas
+// ═══ AMBIENT DATA PARTICLE FIELD ═══
+// Slow-drifting particles + occasional pulse lines between nearby nodes
+// Feels like a live data network, not a christmas tree
 (function() {
   const canvas = document.getElementById('star-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, orbs = [];
+  let W, H, nodes = [], frame = 0;
+
+  const COLORS = [
+    'rgba(232,52,26,',    // RCB red
+    'rgba(255,107,71,',   // RCB light
+    'rgba(212,168,67,',   // gold
+    'rgba(240,200,102,',  // gold light
+    'rgba(255,220,150,',  // warm
+  ];
 
   function resize() {
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
 
-  const PALETTE = [
-    [232, 52, 26],   // RCB red
-    [212, 168, 67],  // gold
-    [245, 166, 35],  // CSK amber
-    [255, 240, 210], // warm white
-  ];
-
-  function mkOrb() {
-    const [r, g, b] = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-    const angle = Math.random() * Math.PI * 2;
-    const speed = 0.12 + Math.random() * 0.18;
+  function mkNode() {
+    const col = COLORS[Math.floor(Math.random() * COLORS.length)];
     return {
       x: Math.random() * W,
       y: Math.random() * H,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
-      r: 40 + Math.random() * 120,       // large, soft
-      opacity: 0.018 + Math.random() * 0.032,
-      cr: r, cg: g, cb: b,
-      pulse: Math.random() * Math.PI * 2, // phase offset
-      pulseSpeed: 0.004 + Math.random() * 0.006,
+      // Very slow drift
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.12,
+      r: 0.6 + Math.random() * 1.4,
+      baseOp: 0.15 + Math.random() * 0.35,
+      op: 0,
+      col,
+      // Each node breathes at a slightly different rate
+      breathPhase: Math.random() * Math.PI * 2,
+      breathSpeed: 0.008 + Math.random() * 0.012,
+      // Occasional brief pulse
+      pulseTimer: Math.floor(Math.random() * 300),
+      pulsing: false,
+      pulseOp: 0,
     };
   }
 
   function init() {
-    orbs = [];
-    for (let i = 0; i < 14; i++) orbs.push(mkOrb());
+    nodes = [];
+    const count = Math.min(55, Math.floor(W * H / 18000));
+    for (let i = 0; i < count; i++) nodes.push(mkNode());
+    nodes.forEach(n => { n.op = n.baseOp; });
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
+    frame++;
 
-    orbs.forEach(o => {
-      o.x += o.vx;
-      o.y += o.vy;
-      o.pulse += o.pulseSpeed;
+    // Draw connection lines between nearby nodes first (background layer)
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140) {
+          const lineOp = (1 - dist / 140) * 0.06 * (a.op + b.op);
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(212,168,67,${lineOp})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
 
-      // Wrap around edges smoothly
-      if (o.x < -o.r * 2) o.x = W + o.r;
-      if (o.x > W + o.r * 2) o.x = -o.r;
-      if (o.y < -o.r * 2) o.y = H + o.r;
-      if (o.y > H + o.r * 2) o.y = -o.r;
+    // Draw nodes
+    nodes.forEach(n => {
+      // Breathe
+      n.breathPhase += n.breathSpeed;
+      n.op = n.baseOp + Math.sin(n.breathPhase) * n.baseOp * 0.4;
 
-      const breathe = 1 + Math.sin(o.pulse) * 0.12;
-      const radius = o.r * breathe;
-      const alpha = o.opacity * (0.85 + Math.sin(o.pulse * 0.7) * 0.15);
+      // Pulse countdown
+      n.pulseTimer--;
+      if (n.pulseTimer <= 0 && !n.pulsing) {
+        n.pulsing = true;
+        n.pulseOp = 0.9;
+        n.pulseTimer = 200 + Math.floor(Math.random() * 400);
+      }
+      if (n.pulsing) {
+        // Draw pulse ring expanding outward
+        const pr = n.r + (0.9 - n.pulseOp) * 22;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, pr, 0, Math.PI * 2);
+        ctx.strokeStyle = n.col + (n.pulseOp * 0.4) + ')';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+        n.pulseOp -= 0.018;
+        if (n.pulseOp <= 0) n.pulsing = false;
+      }
 
-      const grd = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, radius);
-      grd.addColorStop(0,   `rgba(${o.cr},${o.cg},${o.cb},${alpha})`);
-      grd.addColorStop(0.5, `rgba(${o.cr},${o.cg},${o.cb},${alpha * 0.4})`);
-      grd.addColorStop(1,   `rgba(${o.cr},${o.cg},${o.cb},0)`);
-
+      // Draw core dot
       ctx.beginPath();
-      ctx.arc(o.x, o.y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = grd;
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = n.col + n.op + ')';
       ctx.fill();
+
+      // Soft glow
+      const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 5);
+      g.addColorStop(0, n.col + (n.op * 0.35) + ')');
+      g.addColorStop(1, n.col + '0)');
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
+
+      // Drift
+      n.x += n.vx;
+      n.y += n.vy;
+
+      // Soft wrap at edges
+      if (n.x < -20) n.x = W + 20;
+      if (n.x > W + 20) n.x = -20;
+      if (n.y < -20) n.y = H + 20;
+      if (n.y > H + 20) n.y = -20;
     });
 
     requestAnimationFrame(draw);
