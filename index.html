@@ -80,42 +80,78 @@ body{background:var(--bg);color:var(--t1);font-family:var(--head);font-size:12px
 .cpct{font-family:var(--head);font-size:11px;font-weight:700;color:var(--gold2);text-align:center;line-height:1.6;letter-spacing:1px}
 .mdt{font-family:var(--mono);font-size:6px;color:var(--t3);text-align:center;line-height:2;letter-spacing:0.06em}
 
-/* PROB BAR */
-.pbr{display:grid;grid-template-columns:64px 1fr 64px;align-items:center;gap:12px;
-  padding:12px 20px;background:var(--s1);border-bottom:1px solid var(--b2);position:relative;
-  animation:fadeUp 0.5s ease 0.3s both}
+/* PROB BAR — redesigned as hero strip with embedded toggle */
+.pbr{
+  background:var(--s1);border-bottom:1px solid var(--b2);position:relative;
+  animation:fadeUp 0.5s ease 0.3s both;
+}
 .pbr::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,rgba(232,52,26,0.06) 0%,transparent 35%,transparent 65%,rgba(245,166,35,0.06) 100%)}
-.pp{font-family:var(--head);font-size:28px;font-weight:800;line-height:1;transition:all 0.4s;letter-spacing:0.5px}
+  background:linear-gradient(90deg,rgba(232,52,26,0.07) 0%,transparent 35%,transparent 65%,rgba(245,166,35,0.07) 100%)}
+/* Top row: percentages + bar */
+.pbr-nums{display:grid;grid-template-columns:90px 1fr 90px;align-items:center;gap:14px;padding:14px 20px 8px}
+.pp{font-family:var(--head);font-size:42px;font-weight:900;line-height:1;transition:all 0.4s;letter-spacing:-0.5px}
 .pp.r{color:var(--rcb2)}.pp.c{color:var(--csk2);text-align:right}
-.hb{height:5px;background:var(--s3);display:flex;overflow:hidden;border-radius:3px;position:relative}
+.pp-sub{font-family:var(--mono);font-size:7px;letter-spacing:0.1em;margin-top:2px}
+.pp-sub.r{color:var(--rcb2);opacity:0.6}.pp-sub.c{color:var(--csk2);opacity:0.6;text-align:right}
+.hb-wrap{display:flex;flex-direction:column;gap:4px}
+.hb-label{display:flex;justify-content:center;font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.12em}
+.hb{height:6px;background:var(--s3);display:flex;overflow:hidden;border-radius:3px;position:relative}
 .hbr{background:linear-gradient(90deg,var(--rcb),var(--rcb2));transition:width 0.9s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
 .hbc{background:linear-gradient(90deg,var(--csk2),var(--csk));flex:1;position:relative;overflow:hidden}
 .hbr::after,.hbc::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shimmer 2.5s ease-in-out infinite}
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
+/* Bottom row: toggle embedded */
+.pbr-bottom{display:flex;align-items:center;justify-content:space-between;padding:6px 20px 12px;gap:12px;flex-wrap:wrap}
+.pbr-toggle{display:flex;align-items:center;gap:10px}
+.pbr-toggle-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.15em}
+.toggle-wrap{display:flex;align-items:center;gap:10px}
+.toggle-opt{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:0.06em;color:var(--t3);transition:all 0.25s;cursor:pointer;padding:3px 0}
+.toggle-opt.active-l{color:var(--warn)}.toggle-opt.active-r{color:var(--ok)}
+.toggle-track{width:44px;height:24px;background:var(--s3);border:1px solid var(--b2);border-radius:12px;position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0}
+.toggle-track.on{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.35)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;
+  background:linear-gradient(135deg,#FFD060,#F5A623);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+.toggle-track.on .toggle-thumb{left:23px;background:linear-gradient(135deg,#2ECC71,#1A8F45)}
+.pbr-toss{display:flex;align-items:center;gap:8px}
+.toss-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.15em;white-space:nowrap}
+select#toss-sel{background:var(--s3);border:1px solid var(--b2);color:var(--t1);font-family:var(--mono);font-size:8px;padding:5px 10px;cursor:pointer;border-radius:3px;transition:border-color 0.2s;letter-spacing:0.04em;outline:none}
+select#toss-sel:hover{border-color:var(--b3)}
+select#toss-sel:focus{border-color:var(--gold)}
+
+/* EXPLAINER STRIP */
+.explainer{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:7px 20px;background:linear-gradient(90deg,rgba(232,52,26,0.06),rgba(212,168,67,0.06),rgba(245,166,35,0.06));
+  border-bottom:1px solid var(--b2);
+}
+.exp-txt{font-family:var(--mono);font-size:8px;color:var(--t2);letter-spacing:0.06em;text-align:center}
+.exp-txt strong{color:var(--gold2)}
+.exp-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0.5;flex-shrink:0}
 
 /* VERDICT */
-.vr{display:flex;align-items:center;justify-content:space-between;padding:8px 20px;background:var(--s2);border-bottom:1px solid var(--b2)}
-.vt{font-family:var(--head);font-size:15px;font-weight:700;letter-spacing:3px;color:var(--gold2);animation:goldPulse 4s ease-in-out infinite}
+.vr{display:flex;align-items:center;justify-content:space-between;padding:7px 20px;background:var(--s2);border-bottom:1px solid var(--b2)}
+.vt{font-family:var(--head);font-size:13px;font-weight:700;letter-spacing:2.5px;color:var(--gold2);animation:goldPulse 4s ease-in-out infinite}
 @keyframes goldPulse{0%,100%{color:var(--gold2)}50%{color:var(--csk2)}}
 .cf{font-family:var(--mono);font-size:7px;font-weight:600;letter-spacing:0.15em;padding:3px 10px;border:1px solid;border-radius:20px}
 .ch{color:var(--ok);border-color:rgba(46,204,113,0.4);background:rgba(46,204,113,0.08)}
 .cm{color:var(--warn);border-color:rgba(243,156,18,0.4);background:rgba(243,156,18,0.08)}
 .cl{color:var(--err);border-color:rgba(231,76,60,0.4);background:rgba(231,76,60,0.08)}
 
-/* TABS */
+/* TABS — reordered and renamed */
 .tabs{display:flex;border-bottom:1px solid var(--b2);overflow-x:auto;scrollbar-width:none;background:var(--s1);position:relative;animation:fadeUp 0.5s ease 0.6s both}
 .tabs::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,var(--rcb),var(--gold),var(--csk));opacity:0.4}
+  background:linear-gradient(90deg,var(--rcb),var(--gold),var(--csk));opacity:0.35}
 .tabs::-webkit-scrollbar{display:none}
-.tab{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;color:var(--t3);
-  padding:13px 16px;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;
-  margin-bottom:-1px;white-space:nowrap;transition:all 0.2s;position:relative}
-.tab.active{color:var(--gold2);border-bottom-color:var(--gold);background:rgba(212,168,67,0.05)}
-.tab:hover:not(.active){color:var(--t2);background:rgba(255,220,150,0.03)}
-.tab.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:tabSlide 0.3s ease both}
+.tab{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--t3);
+  padding:12px 15px;border:none;background:none;cursor:pointer;
+  border-bottom:3px solid transparent;margin-bottom:-1px;
+  white-space:nowrap;transition:all 0.2s;position:relative;flex-shrink:0}
+.tab.active{color:var(--gold2);border-bottom-color:var(--gold);background:rgba(212,168,67,0.06)}
+.tab:hover:not(.active){color:var(--t1);background:rgba(255,220,150,0.04)}
+.tab.active::after{content:'';position:absolute;bottom:-3px;left:10%;right:10%;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold2),transparent);
+  animation:tabSlide 0.3s ease both;border-radius:2px}
 @keyframes tabSlide{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* PANELS */
@@ -128,24 +164,8 @@ body{background:var(--bg);color:var(--t1);font-family:var(--head);font-size:12px
 .stx{font-family:var(--mono);font-size:7px;font-weight:600;letter-spacing:0.25em;color:var(--gold);white-space:nowrap}
 .sl{flex:1;height:1px;background:linear-gradient(90deg,var(--b2),transparent)}
 
-/* MODEL SWITCH */
-.model-switch{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--b);background:var(--s2)}
-.ms-label{font-family:var(--mono);font-size:8px;color:var(--t3);letter-spacing:0.2em}
-.toggle-wrap{display:flex;align-items:center;gap:12px}
-.toggle-opt{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.06em;color:var(--t3);transition:all 0.25s;cursor:pointer}
-.toggle-opt.active-l{color:var(--warn)}.toggle-opt.active-r{color:var(--ok)}
-.toggle-track{width:52px;height:28px;background:var(--s3);border:1px solid var(--b2);border-radius:14px;position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0}
-.toggle-track.on{background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.35)}
-.toggle-thumb{position:absolute;top:4px;left:4px;width:18px;height:18px;border-radius:50%;
-  background:linear-gradient(135deg,#FFD060,#F5A623);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
-.toggle-track.on .toggle-thumb{left:28px;background:linear-gradient(135deg,#2ECC71,#1A8F45)}
-
-/* TOSS ROW */
-.toss-row{padding:10px 20px;border-bottom:1px solid var(--b);background:var(--s2);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.toss-lbl{font-family:var(--mono);font-size:7px;color:var(--t3);letter-spacing:0.2em}
-select#toss-sel{background:var(--s3);border:1px solid var(--b2);color:var(--t1);font-family:var(--mono);font-size:9px;padding:7px 12px;cursor:pointer;border-radius:3px;transition:border-color 0.2s;letter-spacing:0.05em;outline:none}
-select#toss-sel:hover{border-color:var(--b3)}
-select#toss-sel:focus{border-color:var(--gold)}
+/* TOSS ROW — legacy, kept for spacing */
+.toss-row{display:none}
 
 /* PRED CARDS */
 .pred-main{padding:20px;border-bottom:1px solid var(--b)}
@@ -369,8 +389,8 @@ select#toss-sel:focus{border-color:var(--gold)}
 .about-footer{padding:20px 24px;text-align:center}
 .about-footer-txt{font-family:var(--mono);font-size:8px;color:var(--t3);line-height:2;letter-spacing:0.05em}
 
-/* ══ STAR CANVAS ══ */
-#star-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;opacity:0.55}
+/* ══ AMBIENT CANVAS ══ */
+#star-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;opacity:0.6}
 
 /* ══ HEADER STATS STRIP ══ */
 /* Replaces the old .tst / hdr-news approach */
@@ -703,6 +723,13 @@ select#toss-sel:focus{border-color:var(--gold)}
   .wr-board{grid-template-columns:1fr 1fr}
   .wml-hdr,.wml-row{grid-template-columns:1fr 70px 80px 80px}
   .mn-key,.pm-key{min-width:80px}
+  .pbr-nums{grid-template-columns:70px 1fr 70px;padding:10px 14px 6px}
+  .pp{font-size:30px}
+  .pbr-bottom{flex-direction:column;gap:8px;padding:6px 14px 10px}
+  .pbr-toggle,.pbr-toss{width:100%}
+  select#toss-sel{flex:1}
+  .explainer{padding:6px 14px}
+  .exp-txt{font-size:7px}
   .about-bio{grid-template-columns:1fr;gap:14px}
   .about-avatar{width:56px;height:56px;font-size:22px}
   .about-bio-name{font-size:22px}
@@ -833,52 +860,70 @@ select#toss-sel:focus{border-color:var(--gold)}
   </div>
 </div>
 
-<!-- PROB BAR -->
+<!-- EXPLAINER -->
+<div class="explainer">
+  <div class="exp-dot"></div>
+  <div class="exp-txt"><strong>Two models. One match.</strong> Amit's XGBoost vs Claude's Gradient Boosting — predicting every RCB game this season. Toggle between them. See where they disagree.</div>
+  <div class="exp-dot"></div>
+</div>
+
+<!-- PROB BAR — hero strip with embedded toggle + toss -->
 <div class="pbr">
-  <div class="pp r" id="pp-rcb">65.7%</div>
-  <div>
-    <div class="hb">
-      <div class="hbr" id="hbr" style="width:65.7%"></div>
-      <div class="hbc" id="hbc" style="width:34.3%"></div>
+  <div class="pbr-nums">
+    <div>
+      <div class="pp r" id="pp-rcb">65.7%</div>
+      <div class="pp-sub r">RCB WIN</div>
+    </div>
+    <div class="hb-wrap">
+      <div class="hb-label" id="hb-model-lbl">◈ AMIT'S MODEL · XGBOOST + RF</div>
+      <div class="hb">
+        <div class="hbr" id="hbr" style="width:65.7%"></div>
+        <div class="hbc" id="hbc" style="width:34.3%"></div>
+      </div>
+    </div>
+    <div>
+      <div class="pp c" id="pp-csk">34.3%</div>
+      <div class="pp-sub c">CSK WIN</div>
     </div>
   </div>
-  <div class="pp c" id="pp-csk">34.3%</div>
+  <div class="pbr-bottom">
+    <div class="pbr-toggle">
+      <span class="pbr-toggle-lbl">MODEL</span>
+      <div class="toggle-wrap">
+        <span class="toggle-opt active-l" id="lbl-l" onclick="setMode(false)">◈ AMIT (XGBoost)</span>
+        <div class="toggle-track" id="tog" onclick="toggleMode()"><div class="toggle-thumb"></div></div>
+        <span class="toggle-opt" id="lbl-r" onclick="setMode(true)">◎ CLAUDE (GradBoost)</span>
+      </div>
+    </div>
+    <div class="pbr-toss">
+      <span class="toss-lbl">ADJUST FOR TOSS</span>
+      <select id="toss-sel" onchange="compute()">
+        <option value="none">TOSS NOT YET DECIDED</option>
+        <option value="rcb_field">RCB WIN → CHOOSE TO FIELD</option>
+        <option value="rcb_bat">RCB WIN → CHOOSE TO BAT</option>
+        <option value="csk_field">CSK WIN → CHOOSE TO FIELD</option>
+        <option value="csk_bat">CSK WIN → CHOOSE TO BAT</option>
+      </select>
+    </div>
+  </div>
 </div>
 <div class="vr">
   <div class="vt" id="verdict-txt">RCB FAVOURITES — FORM + HOME GROUND + INJURIES</div>
   <span class="cf cm" id="conf-badge">MODERATE CONFIDENCE</span>
 </div>
 
-<!-- TABS -->
+<!-- TABS — reordered: Prediction first, H2H second, then depth tabs -->
 <div class="tabs">
-  <button class="tab active" onclick="sw('predict',this)">◈ PREDICT</button>
-  <button class="tab" onclick="sw('form',this)">▲ FORM ENGINE</button>
+  <button class="tab active" onclick="sw('predict',this)">◈ PREDICTION</button>
+  <button class="tab" onclick="sw('h2h',this)">⬡ H2H + HISTORY</button>
+  <button class="tab" onclick="sw('form',this)">▲ PLAYER FORM</button>
   <button class="tab" onclick="sw('squads',this)">◉ SQUADS</button>
-  <button class="tab" onclick="sw('h2h',this)">⬡ HEAD TO HEAD</button>
-  <button class="tab" onclick="sw('warroom',this)">◆ WAR ROOM</button>
+  <button class="tab" onclick="sw('warroom',this)">◆ SEASON TRACKER</button>
   <button class="tab" onclick="sw('about',this)">◎ ABOUT</button>
 </div>
 
 <!-- ═══════════════════ PREDICT ═══════════════════ -->
 <div class="panel active" id="tab-predict">
-  <div class="model-switch">
-    <span class="ms-label">PREDICTION MODEL</span>
-    <div class="toggle-wrap">
-      <span class="toggle-opt active-l" id="lbl-l" onclick="setMode(false)">🤖 AMIT'S MODEL</span>
-      <div class="toggle-track" id="tog" onclick="toggleMode()"><div class="toggle-thumb"></div></div>
-      <span class="toggle-opt" id="lbl-r" onclick="setMode(true)">🧠 CLAUDE'S MODEL</span>
-    </div>
-  </div>
-  <div class="toss-row">
-    <span class="toss-lbl">TOSS INPUT</span>
-    <select id="toss-sel" onchange="compute()">
-      <option value="none">-- TOSS NOT YET DECIDED --</option>
-      <option value="rcb_field">RCB WIN TOSS → CHOOSE TO FIELD</option>
-      <option value="rcb_bat">RCB WIN TOSS → CHOOSE TO BAT</option>
-      <option value="csk_field">CSK WIN TOSS → CHOOSE TO FIELD</option>
-      <option value="csk_bat">CSK WIN TOSS → CHOOSE TO BAT</option>
-    </select>
-  </div>
 
   <!-- AMIT -->
   <div id="ml-mode">
@@ -1662,6 +1707,9 @@ function applyMode() {
   tog.className = 'toggle-track' + (claudeMode ? ' on' : '');
   ll.className = 'toggle-opt' + (!claudeMode ? ' active-l' : '');
   lr.className = 'toggle-opt' + (claudeMode ? ' active-r' : '');
+  // Update bar label
+  const lbl = document.getElementById('hb-model-lbl');
+  if (lbl) lbl.textContent = claudeMode ? '◎ CLAUDE\'S MODEL · GRADIENT BOOST + RF' : '◈ AMIT\'S MODEL · XGBOOST + RF';
   compute();
 }
 
@@ -1734,104 +1782,84 @@ function g(id) { return document.getElementById(id); }
 // Init
 compute();
 
-// ═══ STAR PARTICLE ENGINE ═══
+// ═══ AMBIENT DATA ORB ENGINE ═══
+// Replaces falling stars — slow-drifting translucent circles
+// Feels like ambient data visualization, not Christmas
 (function() {
   const canvas = document.getElementById('star-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, stars = [], scrollY = 0;
+  let W, H, orbs = [];
 
   function resize() {
     W = canvas.width = window.innerWidth;
     H = canvas.height = window.innerHeight;
   }
 
-  function mkStar() {
+  const PALETTE = [
+    [232, 52, 26],   // RCB red
+    [212, 168, 67],  // gold
+    [245, 166, 35],  // CSK amber
+    [255, 240, 210], // warm white
+  ];
+
+  function mkOrb() {
+    const [r, g, b] = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 0.12 + Math.random() * 0.18;
     return {
       x: Math.random() * W,
-      y: -10,
-      vy: 0.3 + Math.random() * 0.7,
-      vx: (Math.random() - 0.5) * 0.2,
-      size: 0.5 + Math.random() * 1.5,
-      opacity: 0.4 + Math.random() * 0.6,
-      trail: [],
-      color: Math.random() > 0.7
-        ? `rgba(255,107,71,${0.5 + Math.random() * 0.5})`
-        : `rgba(255,208,128,${0.5 + Math.random() * 0.5})`
+      y: Math.random() * H,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      r: 40 + Math.random() * 120,       // large, soft
+      opacity: 0.018 + Math.random() * 0.032,
+      cr: r, cg: g, cb: b,
+      pulse: Math.random() * Math.PI * 2, // phase offset
+      pulseSpeed: 0.004 + Math.random() * 0.006,
     };
   }
 
-  function initStars() {
-    stars = [];
-    // Seed initial stars across the canvas height
-    for (let i = 0; i < 60; i++) {
-      const s = mkStar();
-      s.y = Math.random() * H;
-      stars.push(s);
-    }
+  function init() {
+    orbs = [];
+    for (let i = 0; i < 14; i++) orbs.push(mkOrb());
   }
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    // Parallax offset based on scroll
-    const parallax = scrollY * 0.08;
+    orbs.forEach(o => {
+      o.x += o.vx;
+      o.y += o.vy;
+      o.pulse += o.pulseSpeed;
 
-    stars.forEach((s, i) => {
-      // Move
-      s.y += s.vy;
-      s.x += s.vx;
+      // Wrap around edges smoothly
+      if (o.x < -o.r * 2) o.x = W + o.r;
+      if (o.x > W + o.r * 2) o.x = -o.r;
+      if (o.y < -o.r * 2) o.y = H + o.r;
+      if (o.y > H + o.r * 2) o.y = -o.r;
 
-      // Store trail
-      s.trail.push({ x: s.x, y: s.y });
-      if (s.trail.length > 8) s.trail.shift();
+      const breathe = 1 + Math.sin(o.pulse) * 0.12;
+      const radius = o.r * breathe;
+      const alpha = o.opacity * (0.85 + Math.sin(o.pulse * 0.7) * 0.15);
 
-      // Draw trail
-      if (s.trail.length > 1) {
-        for (let t = 1; t < s.trail.length; t++) {
-          const a = (t / s.trail.length) * s.opacity * 0.35;
-          ctx.beginPath();
-          ctx.strokeStyle = s.color.replace(/[\d.]+\)$/, a + ')');
-          ctx.lineWidth = s.size * (t / s.trail.length);
-          ctx.moveTo(s.trail[t-1].x, s.trail[t-1].y + parallax);
-          ctx.lineTo(s.trail[t].x, s.trail[t].y + parallax);
-          ctx.stroke();
-        }
-      }
+      const grd = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, radius);
+      grd.addColorStop(0,   `rgba(${o.cr},${o.cg},${o.cb},${alpha})`);
+      grd.addColorStop(0.5, `rgba(${o.cr},${o.cg},${o.cb},${alpha * 0.4})`);
+      grd.addColorStop(1,   `rgba(${o.cr},${o.cg},${o.cb},0)`);
 
-      // Draw star dot
       ctx.beginPath();
-      ctx.arc(s.x, s.y + parallax, s.size, 0, Math.PI * 2);
-      ctx.fillStyle = s.color;
-      ctx.fill();
-
-      // Glow
-      const grd = ctx.createRadialGradient(s.x, s.y + parallax, 0, s.x, s.y + parallax, s.size * 4);
-      grd.addColorStop(0, s.color.replace(/[\d.]+\)$/, s.opacity * 0.3 + ')'));
-      grd.addColorStop(1, 'transparent');
-      ctx.beginPath();
-      ctx.arc(s.x, s.y + parallax, s.size * 4, 0, Math.PI * 2);
+      ctx.arc(o.x, o.y, radius, 0, Math.PI * 2);
       ctx.fillStyle = grd;
       ctx.fill();
-
-      // Recycle
-      if (s.y > H + 20) {
-        stars[i] = mkStar();
-      }
     });
-
-    // Spawn a new star occasionally
-    if (Math.random() < 0.08 && stars.length < 80) {
-      stars.push(mkStar());
-    }
 
     requestAnimationFrame(draw);
   }
 
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
-  window.addEventListener('resize', () => { resize(); initStars(); });
+  window.addEventListener('resize', () => { resize(); init(); });
   resize();
-  initStars();
+  init();
   draw();
 })();
 </script>
